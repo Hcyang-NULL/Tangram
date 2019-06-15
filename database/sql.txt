@@ -1,0 +1,2 @@
+CREATE DATABASE tangram;
+CREATE TABLE Information (username varchar(20) NOT NULL PRIMARY KEY, pwd varchar(20) NOT NULL, email varchar(40) NOT NULL);
