@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/mystyle.css">
+    <script src="cc.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-in">
+            <div class="position">
+                <img src="../../../img/bird.png" alt="" class="logo">
+                <div class="navi">
+                    <div class="home">
+                        首页
+                    </div>
+                    <div class="login">
+                        登陆
+                    </div>
+                    <div class="signup">
+                        注册
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="main-body" style="background-color: #f7f7f7">
+        <div class="padding">
+            <form>
+                <fieldset class="AS">
+                    <h2>用户注册</h2>
+                    <div class="row">
+                        <span>
+                            <input class="slide-up" id="userid" type="text" placeholder="请输入用户名" />
+                            <label for="userid">用户名</label>
+                        </span>
+                    </div>
+                    <div class="check check1">
+                        <img src="../../../img/x.png" alt="" class="x">
+                        <p class="ptext">不能为空</p>
+                    </div>
+                    <div class="check check2">
+                        <img src="../../../img/x.png" alt="" class="x">
+                        <p class="ptext">用户名 重复</p>
+                    </div>
+                    <div class="check check2">
+                        <img src="../../../img/x.png" alt="" class="x">
+                        <p class="ptext">格式不正确(含有非法字符或超出限制)</p>
+                    </div>
+                    <div class="row">
+                        <span>
+                            <input type="text" class="slide-up" id="email" placeholder="请输入邮箱地址">
+                            <label for="email">邮箱地址<br /></label>
+                        </span>
+                    </div>
+                    <div class="check check1">
+                        <img src="../../../img/x.png" alt="" class="x">
+                        <p class="ptext">不能为空</p>
+                    </div>
+                    <div class="check check1">
+                        <img src="../../../img/x.png" alt="" class="x">
+                        <p class="ptext">格式不正确</p>
+                    </div>
+                    <div class="row">
+                        <span>
+                            <input type="password" class="slide-up" id="password1" placeholder="请输入密码">
+                            <label for="password">密码<br /></label>
+                        </span>
+                    </div>
+                    <div class="check check3">
+                        <img src="../../../img/x.png" alt="" class="x">
+                        <p class="ptext">8到25个字符之间</p>
+                    </div>
+                    <div class="check check4">
+                        <img src="../../../img/x.png" alt="" class="x">
+                        <p class="ptext">数字和字母的组合</p>
+                    </div>
+                    <div class="row">
+                        <span>
+                            <input type="password" class="slide-up" id="password2" placeholder="请再输入一遍密码">
+                            <label for="password">确认密码<br /></label>
+                        </span>
+                    </div>
+                    <div class="check check5">
+                        <img src="../../../img/x.png" alt="" class="x">
+                        <p class="ptext">两次输入的密码不一致</p>
+                    </div>
+
+                    <div class="protocoldiv">
+                        <div class="protocol-in">
+                            <input type="checkbox" name="protocol" id="protocol">
+                            <label class="protocol-label" for="protocol">我同意<a href="null">《七巧板用户相关协议》</a></label>
+                        </div>
+                    </div>
+
+                    <div class="submit-button">
+                        <input type="submit" value="注册账号" id="submit">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        Email:&nbsp;hcyangnull@gmail.com
+    </div>
+</body>
+
+</html>
