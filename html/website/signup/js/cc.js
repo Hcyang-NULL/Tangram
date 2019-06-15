@@ -199,3 +199,11 @@ $('#protocol').change(function (e) {
         $('#submit').removeClass('submit-active');
     }
 });
+
+$('.login').click(function (e) { 
+    window.location.href = '../../login/html/login.html'
+});
+
+$('.home').click(function (e) { 
+    window.location.href = '../../../home.html'
+});
