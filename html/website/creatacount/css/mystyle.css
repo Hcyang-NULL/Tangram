@@ -305,7 +305,8 @@ body {
 .signup {
     float: left;
     margin-left: 20px;
-    border-bottom: solid 2px rgb(26, 135, 232)
+    border-bottom: solid 2px rgb(26, 135, 232);
+    cursor: pointer;
 }
 
 .main-body {
@@ -371,6 +372,7 @@ a:hover {
     width: 20px;
     bottom: 0;
     float: left;
+    cursor: pointer;
 }
 
 .protocol-label {
@@ -419,4 +421,16 @@ a:hover {
     margin-top: 5%;
     font-family: 'footer-font';
     font-size: 80%;
+}
+
+.login:hover {
+    border-bottom: solid 2px rgb(26, 135, 232);
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+.home:hover {
+    border-bottom: solid 2px rgb(26, 135, 232);
+    transition: 0.1s;
+    cursor: pointer;
 }
