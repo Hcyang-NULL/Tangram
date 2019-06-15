@@ -17,6 +17,7 @@
  
 html{
   height: 100%;
+  overflow: hidden;
 }
 
  body {
@@ -180,7 +181,7 @@ html{
  .middle{
    border: solid 1px;
    margin-top: 58px;
-   margin-bottom: 80px;
+   /* margin-bottom: 80px; */
    /* height: 100%; */
    
  }
