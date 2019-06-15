@@ -245,19 +245,18 @@ span:nth-child(3) .slide-up:active {
     transform: translateY(70%);
 }
 
-/* .check1
-{
-  
-  margin-top: 2%;
-  
-  
-} */
 .check {
     font-size: 80%;
     z-index: 103;
     float: left;
     clear: both;
     width: 100%;
+    display: none;
+    color: rgb(212, 64, 0);
+}
+
+#submit:focus {
+    outline: 0
 }
 
 body {
@@ -479,4 +478,57 @@ a:hover {
     border-bottom: solid 2px rgb(26, 135, 232);
     transition: 0.1s;
     cursor: pointer;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+    }
+
+    5% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+
+    10%,
+    20%,
+    30% {
+        -webkit-transform: rotate(-4deg);
+        transform: rotate(-4deg);
+    }
+
+    15%,
+    25%,
+    35% {
+        -webkit-transform: rotate(4deg);
+        transform: rotate(4deg);
+    }
+
+    40% {
+        -webkit-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+
+    45% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+
+    50% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+
+#signup:focus {
+    outline: 0;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #f7f7f7 inset;
 }
