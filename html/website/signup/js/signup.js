@@ -25,6 +25,10 @@ function eliminate_error(name, index, inputbox, error) {
     check_array[index - 1] = 0
 }
 
+$('#userid').focus(function (e) { 
+    hideMessage()
+});
+
 // Check userid
 $('#userid').blur(function (e) {
     var inputbox = '#userid'
@@ -174,6 +178,27 @@ function unmask() {
     $('.loading').css('display', 'none');
 }
 
+function showMessageSucess(title, msg) {
+    $('.error-message-succeed').children(':first').children().text(title);
+    $('.error-message-succeed').children(':last').children().text(msg);
+    $('.error-message-succeed').css('display', 'block');
+}
+
+function hideMessage() {
+    $('.error-message-succeed').children(':first').children().text('');
+    $('.error-message-succeed').children(':last').children().text('');
+    $('.error-message-succeed').css('display', 'none');
+    $('.error-message-failed').children(':first').children().text('');
+    $('.error-message-failed').children(':last').children().text('');
+    $('.error-message-failed').css('display', 'none');
+}
+
+function showMessageFailed(title, msg) {
+    $('.error-message-failed').children(':first').children().text(title);
+    $('.error-message-failed').children(':last').children().text(msg);
+    $('.error-message-failed').css('display', 'block');
+}
+
 function HandleResponse(res) {
     unmask();
     var code = res.code;
@@ -189,16 +214,16 @@ function HandleResponse(res) {
         $("#email").val("");
         $("#password1").val("");
         $("#password2").val("");
-        alert(msg);
+        showMessageSucess('注册成功', '已发送身份验证邮件')
     }
     else
     {
-        alert(msg);
+        showMessageFailed('十分抱歉', '服务器开了小差，请稍后再试')
     }
 }
 
 function ErrorNetwork() {
-    alert("请检查网络连接");
+    showMessageFailed('网络错误', '请检查网络状态并重试')
 }
 
 $('form').submit(function (e) {
@@ -253,7 +278,7 @@ $('form').submit(function (e) {
         },
         complete: function () { 
             unmask();
-         }
+        }
     });
 
     return;
@@ -279,3 +304,5 @@ $('.login').click(function (e) {
 $('.home').click(function (e) { 
     window.location.href = '../../../home.html'
 });
+
+showMessageFailed('十分抱歉', '服务器开了小差，请稍后再试')

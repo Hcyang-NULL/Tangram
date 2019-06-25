@@ -72,7 +72,7 @@ async def SignInHandler(request):
 
         db = connect()
         cursor = db.cursor()
-        sql = ("SELECT verify FROM Information WHERE username='%s' AND password='%s'")%(username, password)
+        sql = ("SELECT verify FROM Information WHERE username='%s' AND pwd='%s'")%(username, password)
         print(sql)
         cursor.execute(sql)
         results = cursor.fetchall()

@@ -609,15 +609,15 @@ input:-webkit-autofill {
     color: rgb(2, 130, 77);
 }
 .error-message-title{
-    margin-top: 2%;
+    margin-top: 4%;
     margin-left: 5%;
-    font-size: 25px;
+    font-size: 110%;
     font-family: PingFangSC-Regular, sans-serif;
 }
 .error-message-content{
     margin-left: 5%;
-    font-size: 20px;
-    margin-top: 2%;
+    font-size: 80%;
+    margin-top: 3%;
     font-family: PingFangSC-Regular, sans-serif;
 }
 .error-message-img{

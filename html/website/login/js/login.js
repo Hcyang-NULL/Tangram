@@ -1,3 +1,11 @@
+/*
+ * Author: Hcyang
+ * Time: 2019-06-25
+ */
+
+const CODE_SIGNIN_ERR = 602;
+const CODE_SIGNIN_SUCC = 701;
+const CODE_UNKNOWN_ERR = 900;
 
 var check_array = new Array(4).fill(0);
 
@@ -18,6 +26,7 @@ function eliminate_error(name, index, inputbox, error) {
 // Check userid
 $('#userid').blur(function (e) {
     var inputbox = '#userid'
+    eliminate_error('.check4', 4, inputbox);
     var userid = $('#userid').val();
     var error = false;
 
@@ -56,6 +65,39 @@ function shake_animation(name) {
     }, 300);
 }
 
+function mask() {
+    $('.loading').css('display', 'block');
+}
+
+function unmask() {
+    $('.loading').css('display', 'none');
+}
+
+function HandleResponse(res) {
+    unmask();
+    var code = res.code;
+    var msg = res.msg;
+    
+    if(code == CODE_SIGNIN_ERR)
+    {
+        $("#password").val("");
+        error_input('.check4', 4, '#password');
+    }
+    else if(code == CODE_SIGNIN_SUCC)
+    {
+        alert(msg);
+        window.location.href = '../../../home.html';
+    }
+    else
+    {
+        alert(msg);
+    }
+}
+
+function ErrorNetwork() {
+    alert("请检查网络连接");
+}
+
 $('form').submit(function (e) { 
     e.preventDefault();
 
@@ -68,6 +110,33 @@ $('form').submit(function (e) {
             global_error = true;
         }
     }
+
+    var userid = $('#userid').val();
+    var password = $('#password').val();
+    var data = new Object();
+    data.username = userid;
+    data.password = password;
+
+    mask();
+    $.ajax({
+        type: "POST",
+        url: "http://119.23.248.43/signin",
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (response) {
+            unmask();
+            console.log(response);
+            HandleResponse(response)
+        },
+        error: function () {
+            unmask();
+            ErrorNetwork();
+        },
+        complete: function () { 
+            unmask();
+        }
+    });
+
 });
 
 
