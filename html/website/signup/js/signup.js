@@ -165,6 +165,23 @@ function shake_animation(name) {
 $('form').submit(function (e) {
     e.preventDefault();
 
+    // $.ajax({
+    //     type: "GET",
+    //     url: "http://119.23.248.43",
+    //     // data: JSON.stringify(data),
+    //     dataType: "json",
+    //     contentType : "application/json",
+    //     success: function (response) {
+    //         console.log(response);
+    //     }
+    // });
+
+    // if(1<4)
+    // {
+    //     return;
+    // }
+
+
     if(!$('#protocol').get(0).checked)
     {
         return;
@@ -182,7 +199,30 @@ $('form').submit(function (e) {
         }
     }
 
-    
+    if(global_error)
+    {
+        return;
+    }
+
+    //send request
+    var userid = $('#userid').val();
+    var email = $('#email').val();
+    var password = $('#password1').val();
+    var data = new Object();
+    data.username = userid;
+    data.email = email;
+    data.password = password;
+
+    $.ajax({
+        type: "POST",
+        url: "http://119.23.248.43/signup",
+        data: JSON.stringify(data),
+        dataType: "json",
+        contentType : "application/json",
+        success: function (response) {
+            console.log(response);
+        }
+    });
 
     return;
 });
