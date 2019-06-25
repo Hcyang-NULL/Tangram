@@ -4,6 +4,7 @@
  */
 
 const CODE_SIGNIN_ERR = 602;
+const CODE_UNVERIFIED = 603;
 const CODE_SIGNIN_SUCC = 701;
 const CODE_UNKNOWN_ERR = 900;
 
@@ -70,6 +71,7 @@ $('#userid').blur(function (e) {
 // Check password
 $('#password').blur(function (e) {
     var inputbox = '#password'
+    eliminate_error('.check4', 4, inputbox);
     var pwd = $('#password').val();
     var error = false;
 
@@ -134,6 +136,10 @@ function HandleResponse(res, username) {
     {
         loguser = username;
         window.location.href = '../../../home.html?loguser='+loguser;
+    }
+    else if(code == CODE_UNVERIFIED)
+    {
+        showMessageFailed('登陆失败', '您的账号未通过邮箱验证')
     }
     else
     {

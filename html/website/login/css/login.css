@@ -665,15 +665,15 @@ input:-webkit-autofill {
 }
 
 .error-message-title {
-    margin-top: 3.5%;
+    margin-top: 4%;
     margin-left: 5%;
-    font-size: 130%;
+    font-size: 110%;
     font-family: PingFangSC-Regular, sans-serif;
 }
 
 .error-message-content {
     margin-left: 5%;
-    font-size: 90%;
+    font-size: 80%;
     margin-top: 3%;
     font-family: PingFangSC-Regular, sans-serif;
 }
