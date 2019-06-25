@@ -684,3 +684,8 @@ input:-webkit-autofill {
     top: 5%;
     right: 3%;
 }
+.user-id{
+    float: right;
+    margin-right: 1%;
+    padding: 13px;
+  }

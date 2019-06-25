@@ -103,7 +103,7 @@ body {
 }
 
 .navi {
-  width: 50%;
+  width: 80%;
   float: left;
   height: 54px;
   line-height: 54px;
@@ -289,3 +289,8 @@ a:hover {
   -webkit-animation-iteration-count: 1;
   -webkit-animation-delay: 0s;
 } */
+.user-id{
+  float: right;
+  margin-right: 1%;
+  padding: 13px;
+}

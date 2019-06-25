@@ -230,3 +230,8 @@ a:hover {
   border: solid 1px black;
   height: 80%;
 }
+.user-id{
+  float: right;
+  margin-right: 1%;
+  padding: 13px;
+}
