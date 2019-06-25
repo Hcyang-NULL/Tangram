@@ -120,7 +120,7 @@ body {
 .home {
   float: left;
   margin-left: 40px;
-  border-bottom: solid 2px rgb(26, 135, 232);
+  
 
 }
 
@@ -133,6 +133,7 @@ body {
 .exercise {
   float: left;
   margin-left: 20px;
+  border-bottom: solid 2px rgb(26, 135, 232);
 
 }
 
@@ -203,65 +204,6 @@ a:hover {
   font-size: 80%;
 }
 
-.middle-left {
-  width: 50%;
-  height: 100%;
-  float: left;
-}
-
-.middle-right {
-  width: 50%;
-  height: 100%;
-  float: left;
-
-}
-/* 
-.middle-middle {
-  border: solid 1px;
-  float: left;
-  width: 10%;
-  height: 100%;
-} */
-
-.middle-img {
-  /* margin-right: 5%; */
-  margin-top: 15%;
-  float: right;
-  transition: transform 1s;
-  transform: translate(0px, 600px);
-  /* -webkit-animation-name: fadeOut;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-delay: 0s; */
-}
-
-.middle-logo {
-  height: 300px;
-
-
-}
-
-.middle-text {
-  margin-left: 5%;
-  margin-top: 15%;
-  float: left;
-  transition: transform 1s;
-  transform: translate(0px, 600px);
-  /* -webkit-animation-name: fadeOut;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-delay: 0s; */
-
-}
-
-.middle {
-
-  margin-top: 58px;
-  margin-bottom: 85px;
-  height: 100%;
-
-}
-
 .fadein{
   transition: transform 1s;
   transform: translate(0px, 0px);
@@ -271,21 +213,20 @@ a:hover {
   -webkit-animation-delay: 0s;
 }
 
-/* .middle:hover .middle-img {
-  transition: transform 1s;
-  transform: translate(0px, 0px);
-  -webkit-animation-name: fadeIn;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-delay: 0s;
+.middle {
 
+  margin-top: 58px;
+  margin-bottom: 85px;
+  height: 100%;
+  border: solid 1px black
 }
-
-.middle:hover .middle-text {
-  transition: transform 1s;
-  transform: translate(0px, 0px);
-  -webkit-animation-name: fadeIn;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-delay: 0s;
-} */
+.middle-up{
+  width: 100%;
+  border: solid 1px black;
+  height: 20%;
+}
+.middle-down{
+  width: 100%;
+  border: solid 1px black;
+  height: 80%;
+}
