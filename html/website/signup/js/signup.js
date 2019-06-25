@@ -304,5 +304,3 @@ $('.login').click(function (e) {
 $('.home').click(function (e) { 
     window.location.href = '../../../home.html'
 });
-
-showMessageFailed('十分抱歉', '服务器开了小差，请稍后再试')
