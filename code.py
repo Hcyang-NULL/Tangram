@@ -119,13 +119,7 @@ def Genfour(a):
         try:
             Gendif()
         except:
-            print('GENERAL FAILED')
+            Genfour(3)
     else:
         print('Error')
-        exit(0)
-
-
-if __name__ == "__main__":
-    Genfour(1)
-    Genfour(2)
-    Genfour(3)
+        return 2
