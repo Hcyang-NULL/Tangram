@@ -6,10 +6,28 @@
 const CODE_DNAME_ERR = 600;
 const CODE_SIGNUP_SUCC = 700;
 const CODE_UNKNOWN_ERR = 900;
-
-var MAX_USERID_LENGTH = 10;
+const MAX_USERID_LENGTH = 10;
 
 var check_array = new Array(8).fill(0);
+var loguser = ""
+
+//get parameters in url
+var url = location.search;
+var data = new Object();
+if(url.indexOf("?") != -1)
+{
+    var str = url.substr(1);
+    var strs = str.split("&");
+    for(var i = 0; i < strs.length; i++)
+    {
+        data[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+    }
+}
+if("loguser" in data)
+{
+    loguser = data["loguser"]
+    $('.user-id').children(':first').text(loguser);
+}
 
 function error_input(name, index, inputbox) {
     $(name).css('display', 'block');
@@ -26,6 +44,15 @@ function eliminate_error(name, index, inputbox, error) {
 }
 
 $('#userid').focus(function (e) { 
+    hideMessage()
+});
+$('#email').focus(function (e) { 
+    hideMessage()
+});
+$('#password1').focus(function (e) { 
+    hideMessage()
+});
+$('#password2').focus(function (e) { 
     hideMessage()
 });
 
@@ -298,9 +325,19 @@ $('#protocol').change(function (e) {
 });
 
 $('.login').click(function (e) { 
-    window.location.href = '../../login/html/login.html'
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../login/html/login.html'+tail
 });
 
 $('.home').click(function (e) { 
-    window.location.href = '../../../home.html'
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../../home.html'+tail
 });

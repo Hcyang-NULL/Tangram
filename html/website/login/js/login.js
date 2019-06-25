@@ -9,6 +9,25 @@ const CODE_UNKNOWN_ERR = 900;
 
 var check_array = new Array(4).fill(0);
 
+//get parameters in url
+var url = location.search;
+var data = new Object();
+if(url.indexOf("?") != -1)
+{
+    var str = url.substr(1);
+    var strs = str.split("&");
+    for(var i = 0; i < strs.length; i++)
+    {
+        data[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+    }
+}
+if("loguser" in data)
+{
+    loguser = data["loguser"]
+    $('.user-id').children(':first').text(loguser);
+}
+
+
 function error_input(name, index, inputbox) {
     $(name).css('display', 'block');
     $(inputbox).css('border-color', '#D44000');
@@ -22,6 +41,13 @@ function eliminate_error(name, index, inputbox, error) {
     }
     check_array[index - 1] = 0
 }
+
+$('#userid').focus(function (e) { 
+    hideMessage()
+});
+$('#password').focus(function (e) { 
+    hideMessage()
+});
 
 // Check userid
 $('#userid').blur(function (e) {
@@ -73,7 +99,28 @@ function unmask() {
     $('.loading').css('display', 'none');
 }
 
-function HandleResponse(res) {
+function showMessageSucess(title, msg) {
+    $('.error-message-succeed').children(':first').children().text(title);
+    $('.error-message-succeed').children(':last').children().text(msg);
+    $('.error-message-succeed').css('display', 'block');
+}
+
+function hideMessage() {
+    $('.error-message-succeed').children(':first').children().text('');
+    $('.error-message-succeed').children(':last').children().text('');
+    $('.error-message-succeed').css('display', 'none');
+    $('.error-message-failed').children(':first').children().text('');
+    $('.error-message-failed').children(':last').children().text('');
+    $('.error-message-failed').css('display', 'none');
+}
+
+function showMessageFailed(title, msg) {
+    $('.error-message-failed').children(':first').children().text(title);
+    $('.error-message-failed').children(':last').children().text(msg);
+    $('.error-message-failed').css('display', 'block');
+}
+
+function HandleResponse(res, username) {
     unmask();
     var code = res.code;
     var msg = res.msg;
@@ -85,17 +132,17 @@ function HandleResponse(res) {
     }
     else if(code == CODE_SIGNIN_SUCC)
     {
-        alert(msg);
-        window.location.href = '../../../home.html';
+        loguser = username;
+        window.location.href = '../../../home.html?loguser='+loguser;
     }
     else
     {
-        alert(msg);
+        showMessageFailed('十分抱歉', '服务器开了小差，请稍后再试')
     }
 }
 
 function ErrorNetwork() {
-    alert("请检查网络连接");
+    showMessageFailed('网络错误', '请检查网络状态并重试')
 }
 
 $('form').submit(function (e) { 
@@ -126,7 +173,7 @@ $('form').submit(function (e) {
         success: function (response) {
             unmask();
             console.log(response);
-            HandleResponse(response)
+            HandleResponse(response, userid)
         },
         error: function () {
             unmask();
@@ -141,13 +188,28 @@ $('form').submit(function (e) {
 
 
 $('.signup').click(function (e) { 
-    window.location.href = '../../signup/html/signup.html'
+    var tail;
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../signup/html/signup.html'+tail
 });
 
 $('#signup').click(function (e) { 
-    window.location.href = '../../signup/html/signup.html'
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../signup/html/signup.html'+tail
 });
 
 $('.home').click(function (e) { 
-    window.location.href = '../../../home.html'
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../../home.html'+tail
 });
