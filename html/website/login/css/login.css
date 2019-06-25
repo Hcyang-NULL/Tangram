@@ -405,6 +405,7 @@ a:hover {
     border: none;
     float: left;
     margin-left: 20%;
+    transition: 0.5s;
 }
 
 #submit:hover {
@@ -424,6 +425,7 @@ a:hover {
     border: none;
     float: left;
     margin-left: 10%;
+    transition: 0.5s;
 }
 
 #signup:hover {
@@ -621,6 +623,6 @@ input:-webkit-autofill {
   }
   .loading {
     position: fixed;
-    display: block;
+    display: none;
     z-index: 200 !important;
   }
