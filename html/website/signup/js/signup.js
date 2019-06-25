@@ -3,6 +3,10 @@
  * Time: 2019-06-15
  */
 
+const CODE_DNAME_ERR = 600;
+const CODE_SIGNUP_SUCC = 700;
+const CODE_UNKNOWN_ERR = 900;
+
 var MAX_USERID_LENGTH = 10;
 
 var check_array = new Array(8).fill(0);
@@ -24,6 +28,7 @@ function eliminate_error(name, index, inputbox, error) {
 // Check userid
 $('#userid').blur(function (e) {
     var inputbox = '#userid'
+    eliminate_error('.check3', 3, inputbox);
     var userid = $('#userid').val();
     var error = false;
 
@@ -161,26 +166,43 @@ function shake_animation(name) {
     }, 300);
 }
 
+function mask() {
+    $('.loading').css('display', 'block');
+}
+
+function unmask() {
+    $('.loading').css('display', 'none');
+}
+
+function HandleResponse(res) {
+    unmask();
+    var code = res.code;
+    var msg = res.msg;
+    
+    if(code == CODE_DNAME_ERR)
+    {
+        error_input('.check3', 3, '#userid');
+    }
+    else if(code == CODE_SIGNUP_SUCC)
+    {
+        $("#userid").val("");
+        $("#email").val("");
+        $("#password1").val("");
+        $("#password2").val("");
+        alert(msg);
+    }
+    else
+    {
+        alert(msg);
+    }
+}
+
+function ErrorNetwork() {
+    alert("请检查网络连接");
+}
 
 $('form').submit(function (e) {
     e.preventDefault();
-
-    // $.ajax({
-    //     type: "GET",
-    //     url: "http://119.23.248.43",
-    //     // data: JSON.stringify(data),
-    //     dataType: "json",
-    //     contentType : "application/json",
-    //     success: function (response) {
-    //         console.log(response);
-    //     }
-    // });
-
-    // if(1<4)
-    // {
-    //     return;
-    // }
-
 
     if(!$('#protocol').get(0).checked)
     {
@@ -213,6 +235,7 @@ $('form').submit(function (e) {
     data.email = email;
     data.password = password;
 
+    mask();
     $.ajax({
         type: "POST",
         url: "http://119.23.248.43/signup",
@@ -220,8 +243,17 @@ $('form').submit(function (e) {
         dataType: "json",
         contentType : "application/json",
         success: function (response) {
+            unmask();
             console.log(response);
-        }
+            HandleResponse(response)
+        },
+        error: function () {
+            unmask();
+            ErrorNetwork();
+        },
+        complete: function () { 
+            unmask();
+         }
     });
 
     return;
