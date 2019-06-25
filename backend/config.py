@@ -6,6 +6,6 @@ db_database = 'tangram'
 EMAIL_USER = 'hcyangnull'
 EMAIL_PASSWORD = 'Hcy998821'
 EMAIL_NAME = 'hcyangnull@163.com'
-VERIFY_URL = 'http://119.23.248.43'
+VERIFY_URL = 'http://119.23.248.43/verify?username='
 
 EMAIL_TIMEOUT = 15
