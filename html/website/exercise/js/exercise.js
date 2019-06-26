@@ -3,7 +3,7 @@
  * Time: 2019-06-25
  */
 
-const TOTAL_PROBLEM = 20;
+const TOTAL_PROBLEM = 3;
 
 let ed = -1;
 let problems = [
@@ -18,6 +18,9 @@ let now_problem_correct = "";
 let now_level = -1;
 let now_time;
 let record = [];
+let add_score = 0;
+
+var now_score = 1000;
 
 var loguser = ""
 //get parameters in url
@@ -194,12 +197,15 @@ function init() {
     now_level = -1;
     now_time;
     record = [];
+    add_score = 0
     $('table').empty();
 }
 
 $(document).ready(function () {
     init();
     $('html').addClass('scroll');
+    $('.difficulty').css('transform', 'translate(0px,0px)');
+    $('.difficulty').css('box-shadow', '3px 2px 3px rgb(134, 134, 134)');
 });
 
 function showMiddle() {
@@ -235,16 +241,56 @@ function hideLoading() {
     $('.loading').css('display', 'none');
 }
 
-$('.easy').click(function (e) {
-    init();
-    $('.finish').css('display', 'none');
+$('.difficulty').hover(function () {
+    $('.difficulty').css('transform', 'translate(0px,0px)');
+    $('.difficulty').css('box-shadow', '3px 2px 3px rgb(134, 134, 134)');
+}, function () {
+    $('.difficulty').css('transform', 'translate(-119px,0px)');
+    $('.difficulty').css('box-shadow', 'none');
+});
+
+$('.easy').hover(function () {
     $('.easy').css('background-color', 'rgb(66, 133, 244)');
     $('.easy').css('border-radius', '20px');
     $('.easy').css('color', 'white');
+    $('.easy').css('transition', '0.5s');
+    $('.easy').css('cursor', 'pointer');
+}, function () {
+    $('.easy').css('background-color', 'white');
+    $('.easy').css('color', 'black');
+});
+
+$('.medium').hover(function () {
+    $('.medium').css('background-color', 'rgb(251, 188, 5)');
+    $('.medium').css('border-radius', '20px');
+    $('.medium').css('color', 'white');
+    $('.medium').css('transition', '0.5s');
+    $('.medium').css('cursor', 'pointer');
+}, function () {
     $('.medium').css('background-color', 'white');
     $('.medium').css('color', 'black');
+});
+
+$('.hard').hover(function () {
+    $('.hard').css('background-color', 'rgb(234, 67, 53)');
+    $('.hard').css('border-radius', '20px');
+    $('.hard').css('color', 'white');
+    $('.hard').css('transition', '0.5s');
+    $('.hard').css('cursor', 'pointer');
+}, function () {
     $('.hard').css('background-color', 'white');
     $('.hard').css('color', 'black');
+});
+
+$('.easy').click(function (e) {
+    init();
+    $('.difficulty').css('transform', 'translate(-119px,0px)');
+    $('.difficulty').css('box-shadow', 'none');
+    $('.error').css('display', 'none');
+    $('.service').css('display', 'none');
+    $('.finish').css('display', 'none');
+    $('#title-id').css('color', 'rgb(66, 133, 244)');
+    $('#title-id').children(':first').text("简单难度");
 
     showLoading();
 
@@ -256,7 +302,14 @@ $('.easy').click(function (e) {
         data: JSON.stringify(data),
         dataType: "json",
         success: function (response) {
-            handle_problems(response, 1);
+            if (response.code != 702) {
+                $('.service').css('display', 'block');
+            } else {
+                handle_problems(response, 1);
+            }
+        },
+        error: function () {
+            $('.error').css('display', 'block');
         },
         complete: function () {
             hideLoading();
@@ -266,14 +319,13 @@ $('.easy').click(function (e) {
 
 $('.medium').click(function (e) {
     init();
+    $('.difficulty').css('transform', 'translate(-119px,0px)');
+    $('.difficulty').css('box-shadow', 'none');
+    $('.error').css('display', 'none');
+    $('.service').css('display', 'none');
     $('.finish').css('display', 'none');
-    $('.easy').css('background-color', 'white');
-    $('.easy').css('color', 'black');
-    $('.medium').css('background-color', 'rgb(251, 188, 5)');
-    $('.medium').css('border-radius', '20px');
-    $('.medium').css('color', 'white');
-    $('.hard').css('background-color', 'white');
-    $('.hard').css('color', 'black');
+    $('#title-id').css('color', 'rgb(251, 188, 5)');
+    $('#title-id').children(':first').text("中等难度");
 
     showLoading();
 
@@ -285,7 +337,14 @@ $('.medium').click(function (e) {
         data: JSON.stringify(data),
         dataType: "json",
         success: function (response) {
-            handle_problems(response, 2);
+            if (response.code != 702) {
+                $('.service').css('display', 'block');
+            } else {
+                handle_problems(response, 2);
+            }
+        },
+        error: function () {
+            $('.error').css('display', 'block');
         },
         complete: function () {
             hideLoading();
@@ -295,14 +354,13 @@ $('.medium').click(function (e) {
 
 $('.hard').click(function (e) {
     init();
+    $('.difficulty').css('transform', 'translate(-119px,0px)');
+    $('.difficulty').css('box-shadow', 'none');
+    $('.error').css('display', 'none');
+    $('.service').css('display', 'none');
     $('.finish').css('display', 'none');
-    $('.easy').css('background-color', 'white');
-    $('.easy').css('color', 'black');
-    $('.medium').css('background-color', 'white');
-    $('.medium').css('color', 'black');
-    $('.hard').css('background-color', 'rgb(234, 67, 53)');
-    $('.hard').css('border-radius', '20px');
-    $('.hard').css('color', 'white');
+    $('#title-id').css('color', 'rgb(234, 67, 53)');
+    $('#title-id').children(':first').text("困难难度");
 
     showLoading();
 
@@ -314,7 +372,14 @@ $('.hard').click(function (e) {
         data: JSON.stringify(data),
         dataType: "json",
         success: function (response) {
-            handle_problems(response, 3);
+            if (response.code != 702) {
+                $('.service').css('display', 'block');
+            } else {
+                handle_problems(response, 3);
+            }
+        },
+        error: function () {
+            $('.error').css('display', 'block');
         },
         complete: function () {
             hideLoading();
@@ -401,6 +466,8 @@ function fill_table() {
     var statistic = "<tr><td>总计</td><td></td><td></td><td></td><td>" +
         String(total_score.toFixed(2)) + "</td><td>" + String(total_time.toFixed(1)) + "s</td></tr>"
     console.log(statistic);
+    add_score = total_score;
+    
     $('table').append(statistic);
     $('.mask').css('display', 'block');
     $('.apprasial').css('display', 'block');
@@ -459,8 +526,19 @@ function onKeyPress(e) {
 $('#back').click(function (e) {
     $('.mask').fadeOut();
     $('.apprasial').fadeOut();
+    var temp_score = add_score;
     init();
     $('.finish').css('display', 'block');
-    $('html,body').animate({scrollTop:0},'fast');
+    $('html,body').animate({
+        scrollTop: 0
+    }, 'fast');
     $('html').addClass('scroll');
+
+    $('.add-points').text("+"+String(temp_score));
+    $('.add-points').fadeIn(1000);
+    setTimeout(() => {
+        $('.add-points').fadeOut(1000);
+    }, 1500);
+    var new_score = now_score+temp_score;
+    $('.points').text("总积分："+String(new_score));
 });
