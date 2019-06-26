@@ -446,7 +446,8 @@ a:hover {
   background: none;
   width: 15%;
   /* margin-left: 5%; */
-  text-align: left;
+  text-align: center;
+  font-family: problem-font;
 }
 
 #next-q {

@@ -41,30 +41,6 @@
                     <td>得分</td>
                     <td>用时</td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>(1+2)*5</td>
-                    <td>10</td>
-                    <td>15</td>
-                    <td>1.78</td>
-                    <td>5s</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>(1+2)*5</td>
-                    <td>10</td>
-                    <td>15</td>
-                    <td>1.78</td>
-                    <td>5s</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>(1+2)*5</td>
-                    <td>10</td>
-                    <td>15</td>
-                    <td>1.78</td>
-                    <td>5s</td>
-                </tr>
             </table>
             <input type="botton" id="back" value="返回">
         </div>
@@ -135,20 +111,20 @@
         <div class="middle-bottom">
             <div class="problem">
                 <div class="formula">
-                    (1+2)*5
+                    <text></text>
                 </div>
                 <div class="equal">
                     =
                 </div>
-                <input class="answer">
+                <input class="answer" onkeypress="return onKeyPress(event)" autofocus="autofocus">
             </div>
         </div>
         <div class="buttons">
             <div>
-                <input type="submit" value="交卷" id="ok">
+                <input type="button" value="交卷" id="ok">
             </div>
             <div>
-                <input type="button" value="下一题" id="next-q">
+                <input type="button" value="下一题" id="next-q" >
             </div>
         </div>
     </div>

@@ -3,9 +3,21 @@
  * Time: 2019-06-25
  */
 
+const TOTAL_PROBLEM = 3;
+
 let ed = -1;
-let problems = []
+let problems = [
+    [],
+    [],
+    []
+]
 let started = 0
+let now_problem_index = 0;
+let now_problem_formula = "";
+let now_problem_correct = "";
+let now_level = -1;
+let now_time;
+let record = [];
 
 var loguser = ""
 //get parameters in url
@@ -65,8 +77,7 @@ function setup() {
 
 function draw() {
     // console.log('draw')
-    if(started == 0)
-    {
+    if (started == 0) {
         return;
     }
 
@@ -124,20 +135,21 @@ function shapeCreator(timer) {
 function getTimer() {
     let d = new Date();
     let time = d.getTime()
-    let distance;
 
     if (ed == -1) {
         ed = time;
-        distance = 0;
+        now_time = 0;
+    } else if (ed == -2) {
+        now_time = 0;
     } else {
-        distance = d.getTime() - ed;
+        now_time = d.getTime() - ed;
     }
 
-    if (distance >= 59.9 * 1000) {
-        distance = 60 * 1000;
+    if (now_time >= 59.9 * 1000) {
+        now_time = 60 * 1000;
     }
 
-    let seconds = distance / 1000;
+    let seconds = now_time / 1000;
     Math.floor(seconds) != 0 ? ms = seconds % Math.floor(seconds) : ms = seconds; // ms - milliseconds remaining
     let secondsText = Math.floor(seconds);
 
@@ -159,11 +171,29 @@ function getTimer() {
 
 }
 
-$(document).ready(function () {
-    $('.progress-rate').css('width', '2%');
+function hideMiddle() {
     $('.middle-top').css('display', 'none');
     $('.middle-bottom').css('display', 'none');
     $('.buttons').css('display', 'none');
+}
+
+function init() {
+    $('.progress-rate').css('width', '0%');
+    hideMiddle();
+    $('#next-q').css('display', 'block');
+    ed = -1;
+    problems = [[],[],[]]
+    started = 0
+    now_problem_index = 0;
+    now_problem_formula = "";
+    now_problem_correct = "";
+    now_level = -1;
+    now_time;
+    record = [];
+}
+
+$(document).ready(function () {
+    init();
 });
 
 function showMiddle() {
@@ -172,12 +202,35 @@ function showMiddle() {
     $('.buttons').css('display', 'block');
 }
 
-function handle_problems(data) { 
-    console.log(data)
- }
-
-$('.easy').click(function (e) { 
+function handle_problems(data, level) {
+    now_level = level;
+    started = 1;
     showMiddle();
+    console.log(data)
+
+    problems[level - 1] = data.problems;
+    $('.formula').children(':first').text(problems[level - 1][now_problem_index][0]);
+
+    now_problem_formula = problems[level - 1][now_problem_index][0];
+    now_problem_correct = problems[level - 1][now_problem_index][1];
+
+    now_problem_index++;
+    $('.answer').attr('autofocus', 'autofocus');
+
+    var rate = "0%";
+    $('.progress-rate').css('width', rate);
+}
+
+function showLoading() {
+    $('.loading').css('display', 'block');
+}
+
+function hideLoading() {
+    $('.loading').css('display', 'none');
+}
+
+$('.easy').click(function (e) {
+    init();
     $('.easy').css('background-color', 'rgb(66, 133, 244)');
     $('.easy').css('border-radius', '20px');
     $('.easy').css('color', 'white');
@@ -186,23 +239,26 @@ $('.easy').click(function (e) {
     $('.hard').css('background-color', 'white');
     $('.hard').css('color', 'black');
 
+    showLoading();
+
     var data = new Object()
     data.level = 1;
-    if (problems.length == 0) {
-        $.ajax({
-            type: "POST",
-            url: "http://119.23.248.43/getproblem",
-            data: JSON.stringify(data),
-            dataType: "json",
-            success: function (response) {
-                handle_problems(response);
-                // started = 1;
-            }
-        });
-    }
+    $.ajax({
+        type: "POST",
+        url: "http://119.23.248.43/getproblem",
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (response) {
+            handle_problems(response, 1);
+        },
+        complete: function () {
+            hideLoading();
+        }
+    });
 });
 
-$('.medium').click(function (e) { 
+$('.medium').click(function (e) {
+    init();
     $('.easy').css('background-color', 'white');
     $('.easy').css('color', 'black');
     $('.medium').css('background-color', 'rgb(251, 188, 5)');
@@ -211,23 +267,26 @@ $('.medium').click(function (e) {
     $('.hard').css('background-color', 'white');
     $('.hard').css('color', 'black');
 
+    showLoading();
+
     var data = new Object()
     data.level = 2;
-    if (problems.length == 0) {
-        $.ajax({
-            type: "POST",
-            url: "http://119.23.248.43/getproblem",
-            data: JSON.stringify(data),
-            dataType: "json",
-            success: function (response) {
-                console.log(response)
-                started = 1;
-            }
-        });
-    }
+    $.ajax({
+        type: "POST",
+        url: "http://119.23.248.43/getproblem",
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (response) {
+            handle_problems(response, 2);
+        },
+        complete: function () {
+            hideLoading();
+        }
+    });
 });
 
-$('.hard').click(function (e) { 
+$('.hard').click(function (e) {
+    init();
     $('.easy').css('background-color', 'white');
     $('.easy').css('color', 'black');
     $('.medium').css('background-color', 'white');
@@ -236,18 +295,157 @@ $('.hard').click(function (e) {
     $('.hard').css('border-radius', '20px');
     $('.hard').css('color', 'white');
 
+    showLoading();
+
     var data = new Object()
     data.level = 3;
-    if (problems.length == 0) {
-        $.ajax({
-            type: "POST",
-            url: "http://119.23.248.43/getproblem",
-            data: JSON.stringify(data),
-            dataType: "json",
-            success: function (response) {
-                console.log(response)
-                started = 1;
-            }
-        });
+    $.ajax({
+        type: "POST",
+        url: "http://119.23.248.43/getproblem",
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (response) {
+            handle_problems(response, 3);
+        },
+        complete: function () {
+            hideLoading();
+        }
+    });
+});
+
+function calcu_score(right) {
+    if (right == 0) {
+        return 0;
+    } else {
+        var score = 0;
+        score += now_level;
+        if (now_level == 1 && now_time <= 5000) {
+            score += 0.2 * (5000 - now_time) / 1000;
+        } else if (now_level == 2 && now_time <= 10000) {
+            score += 0.2 * (10000 - now_time) / 1000;
+        } else if (now_level == 3 && now_time <= 20000) {
+            score += 0.2 * (20000 - now_time) / 1000;
+        }
+        return parseFloat(score.toFixed(2));
     }
+}
+
+$('#next-q').click(function (e) {
+    var user_answer = $('.answer').val();
+    $('.answer').val('');
+    var now_score = 0;
+    if (str(user_answer) == now_problem_correct) {
+        now_score = calcu_score(1);
+    } else {
+        now_score = calcu_score(0);
+    }
+
+    //record
+    var temp_record = [];
+    temp_record.push(now_problem_index);
+    temp_record.push(now_problem_formula);
+    temp_record.push(user_answer);
+    temp_record.push(now_problem_correct);
+    temp_record.push(now_score);
+    temp_record.push(parseFloat((now_time / 1000).toFixed(1)));
+    ed = -1;
+
+    $('.formula').children(':first').text(problems[now_level - 1][now_problem_index][0]);
+
+    now_problem_formula = problems[now_level - 1][now_problem_index][0];
+    now_problem_correct = problems[now_level - 1][now_problem_index][1];
+
+    record.push(temp_record);
+    now_problem_index++;
+
+
+    if (now_problem_index == TOTAL_PROBLEM) {
+        $('#next-q').css('display', 'none');
+    }
+
+    var rate = str((((now_problem_index-1) / TOTAL_PROBLEM)*100).toFixed(0))+"%";
+    $('.progress-rate').css('width', rate);
+});
+
+function fill_table() {
+    console.log(record);
+    var total_score = 0;
+    var total_time = 0;
+    for (var i = 0; i < record.length; i++) {
+        var item;
+        total_time += record[i][5];
+        if (record[i][4] == 0) {
+            item = "<tr><td>" + str(record[i][0]) + "</td><td>" + str(record[i][1]) +
+                '</td><td style="color:rgb(234, 67, 53)">' + str(record[i][2]) + "</td><td>" + str(record[i][3]) + "</td><td>" +
+                str(record[i][4]) + "</td><td>" + str(record[i][5]) + "s</td></tr>"
+            $('table').append(item);
+        } else {
+            total_score += record[i][4];
+            item = "<tr><td>" + str(record[i][0]) + "</td><td>" + str(record[i][1]) +
+                '</td><td  style="color:rgb(52, 168, 83)">' + str(record[i][2]) + "</td><td>" + str(record[i][3]) + "</td><td>" +
+                str(record[i][4]) + "</td><td>" + str(record[i][5]) + "s</td></tr>"
+            $('table').append(item);
+        }
+    }
+    var statistic = "<tr><td>总计</td><td></td><td></td><td></td><td>" +
+        str(total_score.toFixed(2)) + "</td><td>" + str(total_time.toFixed(1)) + "s</td></tr>"
+    console.log(statistic);
+    $('table').append(statistic);
+    $('.mask').css('display', 'block');
+    $('.apprasial').css('display', 'block');
+}
+
+$('#ok').click(function (e) {
+    var user_answer = $('.answer').val();
+    $('.answer').val('');
+    var now_score = 0;
+    if (str(user_answer) == now_problem_correct) {
+        now_score = calcu_score(1);
+    } else {
+        now_score = calcu_score(0);
+    }
+
+    //record
+    var temp_record = [];
+    temp_record.push(now_problem_index);
+    temp_record.push(now_problem_formula);
+    temp_record.push(user_answer);
+    temp_record.push(now_problem_correct);
+    temp_record.push(now_score);
+    temp_record.push(parseFloat((now_time / 1000).toFixed(1)));
+    ed = -2;
+
+    record.push(temp_record);
+
+    var rate = "100%";
+    $('.progress-rate').css('width', rate);
+
+    hideMiddle();
+
+    fill_table();
+});
+
+function onKeyPress(e) {
+    var keyCode = null;
+
+    if (e.which)
+        keyCode = e.which;
+    else if (e.keyCode)
+        keyCode = e.keyCode;
+
+    if (keyCode == 13) {
+        if (now_problem_index == TOTAL_PROBLEM) {
+            $('#ok').trigger('click');
+        } else {
+            $('#next-q').trigger('click');
+        }
+        return false;
+    }
+    return true;
+}
+
+$('#back').click(function (e) {
+    $('.mask').fadeOut();
+    $('.apprasial').fadeOut();
+    init();
 });
