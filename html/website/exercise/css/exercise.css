@@ -120,8 +120,6 @@ body {
 .home {
   float: left;
   margin-left: 40px;
-
-
 }
 
 .signup {
@@ -172,6 +170,12 @@ a:hover {
   transition: 0.1s;
   cursor: pointer;
 }
+
+.home:hover {
+    border-bottom: solid 2px rgb(26, 135, 232);
+    transition: 0.1s;
+    cursor: pointer;
+  }
 
 .login:hover {
   border-bottom: solid 2px rgb(26, 135, 232);
@@ -261,7 +265,7 @@ a:hover {
   padding-right: 20px;
   line-height: 40px;
   color: white;
-  width: 50%;
+  width: 40%;
   height: 100%;
   background-color: rgb(85, 207, 117);
   border-radius: 20px;
