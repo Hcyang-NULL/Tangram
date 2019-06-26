@@ -631,3 +631,29 @@ input:-webkit-autofill {
     margin-right: 1%;
     padding: 13px;
   }
+  .total-points {
+    float: right;
+    padding-top: 13px;
+    width: 10%;
+  
+    
+  }
+  .star{
+    height: 23px;
+    float: left;
+    margin-left: 2%;
+  }
+  .add-points{
+    display: none;
+    height: 20%;
+    color: rgb(0,168,98);
+    font-size: 80%;
+    margin-right: 20%;
+    margin-top: -11%;
+    margin-bottom: -2.5%;
+    text-align: right;
+  }
+  .points{
+    height: 70%;
+    float: left;
+  }
