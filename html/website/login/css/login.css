@@ -1,3 +1,7 @@
+/* 
+    Author：hanxiaobo
+    Time:2019-6-15 
+ */
 @import "compass/css3";
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300,800);
@@ -19,7 +23,7 @@ body {
     letter-spacing: -.01em;
     background-color: #f7f7f7;
     width: 100%;
-
+    height: 100%;
 }
 
 .padding {
@@ -241,19 +245,18 @@ span:nth-child(3) .slide-up:active {
     transform: translateY(70%);
 }
 
-/* .check1
-{
-  
-  margin-top: 2%;
-  
-  
-} */
 .check {
     font-size: 80%;
     z-index: 103;
     float: left;
     clear: both;
     width: 100%;
+    display: none;
+    color: rgb(212, 64, 0);
+}
+
+#submit:focus {
+    outline: 0
 }
 
 body {
@@ -293,6 +296,7 @@ body {
 .login {
     float: left;
     margin-left: 20px;
+    border-bottom: solid 2px rgb(26, 135, 232);
 
 }
 
@@ -305,8 +309,7 @@ body {
 .signup {
     float: left;
     margin-left: 20px;
-    border-bottom: solid 2px rgb(26, 135, 232);
-    cursor: pointer;
+
 }
 
 .main-body {
@@ -372,7 +375,6 @@ a:hover {
     width: 20px;
     bottom: 0;
     float: left;
-    cursor: pointer;
 }
 
 .protocol-label {
@@ -390,7 +392,7 @@ a:hover {
     float: left;
     clear: both;
     width: 100%;
-    height: 70px;
+
 }
 
 #submit {
@@ -401,8 +403,9 @@ a:hover {
     background-color: rgb(0, 168, 98);
     color: #ffffff;
     border: none;
+    float: left;
+    margin-left: 20%;
     transition: 0.5s;
-    margin-top: 15px;
 }
 
 #submit:hover {
@@ -412,18 +415,27 @@ a:hover {
     cursor: pointer;
 }
 
-.footer {
-    width: 100%;
-    height: 80px;
-    background-color: rgb(255, 255, 255);
-    text-align: center;
-    line-height: 80px;
-    margin-top: 5%;
-    font-family: 'footer-font';
-    font-size: 80%;
+#signup {
+    border-radius: 20px;
+    height: 40px;
+    width: 100px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .24), 0 8px 12px rgba(0, 0, 0, .14);
+    background-color: white;
+    color: rgb(0, 168, 98);
+    border: none;
+    float: left;
+    margin-left: 10%;
+    transition: 0.5s;
 }
 
-.login:hover {
+#signup:hover {
+    transform: scale(1.1);
+    transform-origin: 35px 35px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.signup:hover {
     border-bottom: solid 2px rgb(26, 135, 232);
     transition: 0.1s;
     cursor: pointer;
@@ -434,3 +446,246 @@ a:hover {
     transition: 0.1s;
     cursor: pointer;
 }
+
+.footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    height: 80px;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    line-height: 80px;
+    margin-top: 5%;
+    font-family: 'footer-font';
+    font-size: 80%;
+}
+
+.exercise {
+    float: left;
+    margin-left: 20px;
+}
+
+.rank {
+    float: left;
+    margin-left: 20px;
+}
+
+.exercise:hover {
+    border-bottom: solid 2px rgb(26, 135, 232);
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+.rank:hover {
+    border-bottom: solid 2px rgb(26, 135, 232);
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+    }
+
+    5% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+
+    10%,
+    20%,
+    30% {
+        -webkit-transform: rotate(-4deg);
+        transform: rotate(-4deg);
+    }
+
+    15%,
+    25%,
+    35% {
+        -webkit-transform: rotate(4deg);
+        transform: rotate(4deg);
+    }
+
+    40% {
+        -webkit-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+
+    45% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+
+    50% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+
+#signup:focus {
+    outline: 0;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #f7f7f7 inset;
+}
+
+@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg)
+    }
+
+    to {
+        -webkit-transform: rotate(359deg)
+    }
+}
+
+@-moz-keyframes rotation {
+    from {
+        -moz-transform: rotate(0deg)
+    }
+
+    to {
+        -moz-transform: rotate(359deg)
+    }
+}
+
+@-o-keyframes rotation {
+    from {
+        -o-transform: rotate(0deg)
+    }
+
+    to {
+        -o-transform: rotate(359deg)
+    }
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(359deg)
+    }
+}
+
+.fade.in {
+    filter: alpha(opacity=100);
+}
+
+.fade.in {
+    opacity: 0.7;
+}
+
+.fade {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transition: opacity .3s linear;
+    transition: opacity .3s linear;
+}
+
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
+.fade.in .spinner,
+.fade.in .spinner-small {
+    -webkit-animation: rotation .6s infinite linear;
+    -moz-animation: rotation .6s infinite linear;
+    -o-animation: rotation .6s infinite linear;
+    animation: rotation .6s infinite linear;
+}
+
+.spinner {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -20px -20px 0 0;
+    border: 2px solid #fff;
+    border-top: 2px solid #24B498;
+    border-radius: 100%;
+}
+
+#page-loader.fade.in {
+    display: block;
+}
+
+#page-loader.fade {
+    display: none;
+}
+
+#page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #E6E8EC;
+}
+
+.loading {
+    position: fixed;
+    display: none;
+    z-index: 200 !important;
+}
+
+.error-message-failed {
+    display: none;
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    border: solid 1px rgba(255, 22, 22);
+    margin: 0;
+    padding: 0;
+    position: relative;
+    color: rgba(224, 29, 29, 0.82);
+}
+
+.error-message-succeed {
+    display: none;
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    border: solid 1px rgb(0, 168, 98);
+    margin: 0;
+    padding: 0;
+    position: relative;
+    color: rgb(2, 130, 77);
+}
+
+.error-message-title {
+    margin-top: 4%;
+    margin-left: 5%;
+    font-size: 110%;
+    font-family: PingFangSC-Regular, sans-serif;
+}
+
+.error-message-content {
+    margin-left: 5%;
+    font-size: 80%;
+    margin-top: 3%;
+    font-family: PingFangSC-Regular, sans-serif;
+}
+
+.error-message-img {
+    height: 20px;
+    position: absolute;
+    top: 5%;
+    right: 3%;
+}
+.user-id{
+    float: right;
+    margin-right: 1%;
+    padding: 13px;
+  }

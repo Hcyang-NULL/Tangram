@@ -1,0 +1,296 @@
+/* 
+    Author：hanxiaobo
+    Time:2019-6-15 
+ */
+@import "compass/css3";
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300,800);
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "footer-font";
+  src: url('../../../font/footer.OTF');
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    /*初始状态 透明度为0*/
+  }
+
+  50% {
+    opacity: 0;
+    /*中间状态 透明度为0*/
+  }
+
+  100% {
+    opacity: 1;
+    /*结尾状态 透明度为1*/
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+    /*初始状态 透明度为0*/
+  }
+
+  50% {
+    opacity: 0;
+    /*中间状态 透明度为0*/
+  }
+
+  100% {
+    opacity: 0;
+    /*结尾状态 透明度为1*/
+  }
+}
+
+
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: Gotham, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  letter-spacing: -.01em;
+  background-color: #f7f7f7;
+  width: 100%;
+  height: 100%;
+}
+
+.padding {
+  background-color: #f7f7f7;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 400px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
+body {
+  height: 100%;
+  left: 0;
+  margin: 0
+}
+
+.header {
+  width: 100%;
+  height: 56px;
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  background-color: #f7f7f7;
+}
+
+.header-in {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 56px;
+  /* display: block; */
+  z-index: 100;
+  /* border-bottom: solid 2px; */
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12), inset 0 -1px 0 0 #dadce0;
+}
+
+.navi {
+  width: 80%;
+  float: left;
+  height: 54px;
+  line-height: 54px;
+  font-size: 85%;
+}
+
+.login {
+  float: left;
+  margin-left: 20px;
+
+
+}
+
+.home {
+    float: left;
+    margin-left: 40px;
+    border-bottom: solid 2px rgb(26, 135, 232);
+
+}
+
+.signup {
+  float: left;
+  margin-left: 20px;
+
+}
+
+.exercise {
+  float: left;
+  margin-left: 20px;
+
+}
+
+.rank {
+  float: left;
+  margin-left: 20px;
+
+}
+
+.main-body {
+  margin-top: 60px;
+}
+
+.logo {
+  height: 42px;
+  float: left;
+  margin-left: 20px;
+  margin-top: 7px;
+}
+
+h2 {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(0, 101, 62);
+}
+
+a:hover {
+  border-bottom: solid 1px rgb(0, 101, 62);
+}
+
+.signup:hover {
+  border-bottom: solid 2px rgb(26, 135, 232);
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.login:hover {
+  border-bottom: solid 2px rgb(26, 135, 232);
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.exercise:hover {
+  border-bottom: solid 2px rgb(26, 135, 232);
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.rank:hover {
+  border-bottom: solid 2px rgb(26, 135, 232);
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  height: 80px;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  line-height: 80px;
+  margin-top: 5%;
+  font-family: 'footer-font';
+  font-size: 80%;
+}
+
+.middle-left {
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+
+.middle-right {
+  width: 50%;
+  height: 100%;
+  float: left;
+
+}
+/* 
+.middle-middle {
+  border: solid 1px;
+  float: left;
+  width: 10%;
+  height: 100%;
+} */
+
+.middle-img {
+  /* margin-right: 5%; */
+  margin-top: 15%;
+  float: right;
+  transition: transform 1s;
+  transform: translate(0px, 600px);
+  /* -webkit-animation-name: fadeOut;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 0s; */
+}
+
+.middle-logo {
+  height: 300px;
+
+
+}
+
+.middle-text {
+  margin-left: 5%;
+  margin-top: 15%;
+  float: left;
+  transition: transform 1s;
+  transform: translate(0px, 600px);
+  /* -webkit-animation-name: fadeOut;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 0s; */
+
+}
+
+.middle {
+
+  margin-top: 58px;
+  margin-bottom: 85px;
+  height: 100%;
+
+}
+
+.fadein{
+  transition: transform 1s;
+  transform: translate(0px, 0px);
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 0s;
+}
+
+/* .middle:hover .middle-img {
+  transition: transform 1s;
+  transform: translate(0px, 0px);
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 0s;
+
+}
+
+.middle:hover .middle-text {
+  transition: transform 1s;
+  transform: translate(0px, 0px);
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 0s;
+} */
+.user-id{
+  float: right;
+  margin-right: 1%;
+  padding: 13px;
+}

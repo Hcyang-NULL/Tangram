@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../css/mystyle.css">
-    <script src="cc.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../css/signup.css">
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -25,9 +25,23 @@
                     <div class="signup">
                         注册
                     </div>
+                    <div class="exercise">
+                        练习
+                    </div>
+                    <div class="rank">
+                        排行
+                    </div>
                 </div>
 
             </div>
+            <div class="user-id">
+                <text>未登录</text>
+            </div>
+        </div>
+    </div>
+    <div class="loading">
+        <div id="page-loader" class="fade in">
+            <span class="spinner"></span>
         </div>
     </div>
     <div class="main-body" style="background-color: #f7f7f7">
@@ -35,10 +49,28 @@
             <form>
                 <fieldset class="AS">
                     <h2>用户注册</h2>
+                    <div class="error-message-failed">
+                        <div class="error-message-title">
+                            <text></text>
+                        </div>
+                        <img src="../../../img/warning.png" alt="" class="error-message-img">
+                        <div class="error-message-content">
+                            <text></text>
+                        </div>
+                    </div>
+                    <div class="error-message-succeed">
+                        <div class="error-message-title">
+                            <text></text>
+                        </div>
+                        <img src="../../../img/对号.png" alt="" class="error-message-img">
+                        <div class="error-message-content">
+                            <text></text>
+                        </div>
+                    </div>
                     <div class="row">
                         <span>
                             <input class="slide-up" id="userid" type="text" placeholder="请输入用户名" />
-                            <label for="userid">用户名</label>
+                            <label for="userid">用&nbsp;&nbsp;户&nbsp;&nbsp;名</label>
                         </span>
                     </div>
                     <div class="check check1">
@@ -47,11 +79,11 @@
                     </div>
                     <div class="check check2">
                         <img src="../../../img/x.png" alt="" class="x">
-                        <p class="ptext">用户名重复</p>
+                        <p class="ptext">格式不正确(含有非法字符或超出限制)</p>
                     </div>
                     <div class="check check3">
                         <img src="../../../img/x.png" alt="" class="x">
-                        <p class="ptext">格式不正确(含有非法字符或超出限制)</p>
+                        <p class="ptext">用户名重复</p>
                     </div>
                     <div class="row">
                         <span>
@@ -70,7 +102,7 @@
                     <div class="row">
                         <span>
                             <input type="password" class="slide-up" id="password1" placeholder="请输入密码">
-                            <label for="password">密码<br /></label>
+                            <label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码<br /></label>
                         </span>
                     </div>
                     <div class="check check6">
@@ -109,6 +141,7 @@
     <div class="footer">
         Email:&nbsp;hcyangnull@gmail.com
     </div>
+    <script src="../js/signup.js" type="text/javascript"></script>
 </body>
 
 </html>
