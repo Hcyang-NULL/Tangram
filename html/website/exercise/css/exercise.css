@@ -248,8 +248,31 @@ a:hover {
 
 .total-points {
   float: right;
-  margin-right: 1%;
-  padding: 13px;
+  padding-top: 13px;
+  width: 10%;
+
+  
+}
+.star{
+  height: 23px;
+  float: left;
+  margin-left: 2%;
+}
+.add-points{
+  display: none;
+  height: 20%;
+  color: rgb(0,168,98);
+  font-size: 80%;
+  margin-right: 20%;
+  margin-top: -11%;
+  margin-bottom: -2.5%;
+  text-align: right;
+}
+.points{
+  height: 70%;
+  float: left;
+  /* margin-top: 5%; */
+  /* clear: both; */
 }
 
 .progress-bar {
@@ -320,18 +343,6 @@ a:hover {
   height: 10%;
   margin-top: 22%;
 }
-/* .easy{
-  background-color: rgb(66, 133, 244);
-  border-radius: 20px;
-}
-.medium{
-  background-color: rgb(251, 188, 5);
-  border-radius: 20px;
-}
-.hard{
-  background-color: rgb(234, 67, 53);
-  border-radius: 20px;
-} */
 .easy:hover {
   background-color: rgb(66, 133, 244);
   border-radius: 20px;
@@ -564,3 +575,97 @@ table td,table th {
   cursor: pointer;
 }
 
+
+
+@-webkit-keyframes rotation {
+  from {
+      -webkit-transform: rotate(0deg)
+  }
+
+  to {
+      -webkit-transform: rotate(359deg)
+  }
+}
+
+@-moz-keyframes rotation {
+  from {
+      -moz-transform: rotate(0deg)
+  }
+
+  to {
+      -moz-transform: rotate(359deg)
+  }
+}
+
+@-o-keyframes rotation {
+  from {
+      -o-transform: rotate(0deg)
+  }
+
+  to {
+      -o-transform: rotate(359deg)
+  }
+}
+@keyframes rotation {
+  from {
+      transform: rotate(0deg)
+  }
+
+  to {
+      transform: rotate(359deg)
+  }
+}
+.fade.in {
+  filter: alpha(opacity=100);
+}
+.fade.in {
+  opacity: 0.7;
+}
+.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity .3s linear;
+  transition: opacity .3s linear;
+}
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity .15s linear;
+  -o-transition: opacity .15s linear;
+  transition: opacity .15s linear;
+}
+  .fade.in .spinner, .fade.in .spinner-small {
+  -webkit-animation: rotation .6s infinite linear;
+  -moz-animation: rotation .6s infinite linear;
+  -o-animation: rotation .6s infinite linear;
+  animation: rotation .6s infinite linear;
+}
+.spinner{
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -20px -20px 0 0;
+  border: 2px solid #fff;
+  border-top: 2px solid #24B498;
+  border-radius: 100%;
+}
+#page-loader.fade.in {
+  display: block;
+}
+#page-loader.fade {
+  display: none;
+}
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #E6E8EC;
+}
+.loading{
+  display: none;
+  position: fixed;
+  z-index: 200 !important;
+}
