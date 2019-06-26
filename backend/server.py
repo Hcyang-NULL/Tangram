@@ -5,6 +5,7 @@ import time
 import stopit
 import smtplib
 import requests
+import read as gp
 import config as c
 import random as rd
 import pymysql as mysql
@@ -12,6 +13,7 @@ from aiohttp import web
 from email.header import Header
 from email.mime.text import MIMEText
 from stopit.utils import TimeoutException
+
 
 def getTime(raw):
     try:
@@ -206,11 +208,33 @@ async def VerifyHandler(request):
         return web.Response(text="激活失败，服务暂不可用")
 
 
+async def GetProblemHandler(request):
+    try:
+        data = await request.json()
+        level = data['level']
+        response_dict = {}
+
+        level = int(level)
+        problems = gp.read(level)
+        response_dict['code'] = 702
+        response_dict['msg'] = "获取题目成功"
+        response_dict['problems'] = problems
+
+        return web.json_response(response_dict)
+
+    except Exception as e:
+        log(("获取题目发生未知错误:\n%s")%(str(e)))
+        response_dict['code'] = 900
+        response_dict['msg'] = "服务暂不可用"
+        return web.json_response(response_dict)
+
+
 def init(app):
     app.router.add_get('/', WebHandler)
     app.router.add_get('/verify', VerifyHandler)
     app.router.add_post('/signup', SignUpHandler)
     app.router.add_post('/signin', SignInHandler)
+    app.router.add_post('/getproblem', GetProblemHandler)
 
 if __name__ == "__main__":
     app = web.Application()
