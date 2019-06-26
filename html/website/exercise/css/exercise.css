@@ -57,7 +57,7 @@
 
 html {
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 body {
@@ -699,4 +699,13 @@ table th {
   color: rgb(234, 67, 53);
   top: 45%;
   font-size: 200%;
+  display: none;
+}
+
+.scroll {
+    overflow-y: hidden;
+}
+
+.table-container {
+    overflow: auto;
 }

@@ -3,7 +3,7 @@
  * Time: 2019-06-25
  */
 
-const TOTAL_PROBLEM = 3;
+const TOTAL_PROBLEM = 20;
 
 let ed = -1;
 let problems = [
@@ -182,7 +182,11 @@ function init() {
     hideMiddle();
     $('#next-q').css('display', 'block');
     ed = -1;
-    problems = [[],[],[]]
+    problems = [
+        [],
+        [],
+        []
+    ]
     started = 0
     now_problem_index = 0;
     now_problem_formula = "";
@@ -190,10 +194,12 @@ function init() {
     now_level = -1;
     now_time;
     record = [];
+    $('table').empty();
 }
 
 $(document).ready(function () {
     init();
+    $('html').addClass('scroll');
 });
 
 function showMiddle() {
@@ -231,6 +237,7 @@ function hideLoading() {
 
 $('.easy').click(function (e) {
     init();
+    $('.finish').css('display', 'none');
     $('.easy').css('background-color', 'rgb(66, 133, 244)');
     $('.easy').css('border-radius', '20px');
     $('.easy').css('color', 'white');
@@ -259,6 +266,7 @@ $('.easy').click(function (e) {
 
 $('.medium').click(function (e) {
     init();
+    $('.finish').css('display', 'none');
     $('.easy').css('background-color', 'white');
     $('.easy').css('color', 'black');
     $('.medium').css('background-color', 'rgb(251, 188, 5)');
@@ -287,6 +295,7 @@ $('.medium').click(function (e) {
 
 $('.hard').click(function (e) {
     init();
+    $('.finish').css('display', 'none');
     $('.easy').css('background-color', 'white');
     $('.easy').css('color', 'black');
     $('.medium').css('background-color', 'white');
@@ -334,7 +343,7 @@ $('#next-q').click(function (e) {
     var user_answer = $('.answer').val();
     $('.answer').val('');
     var now_score = 0;
-    if (str(user_answer) == now_problem_correct) {
+    if (String(user_answer) == now_problem_correct) {
         now_score = calcu_score(1);
     } else {
         now_score = calcu_score(0);
@@ -363,7 +372,7 @@ $('#next-q').click(function (e) {
         $('#next-q').css('display', 'none');
     }
 
-    var rate = str((((now_problem_index-1) / TOTAL_PROBLEM)*100).toFixed(0))+"%";
+    var rate = String((((now_problem_index - 1) / TOTAL_PROBLEM) * 100).toFixed(0)) + "%";
     $('.progress-rate').css('width', rate);
 });
 
@@ -371,35 +380,38 @@ function fill_table() {
     console.log(record);
     var total_score = 0;
     var total_time = 0;
+    var head = "<tr><td>编号</td><td>题目</td><td>你的答案</td><td>正确答案</td><td>得分</td><td>用时</td></tr>"
+    $('table').append(head);
     for (var i = 0; i < record.length; i++) {
         var item;
         total_time += record[i][5];
         if (record[i][4] == 0) {
-            item = "<tr><td>" + str(record[i][0]) + "</td><td>" + str(record[i][1]) +
-                '</td><td style="color:rgb(234, 67, 53)">' + str(record[i][2]) + "</td><td>" + str(record[i][3]) + "</td><td>" +
-                str(record[i][4]) + "</td><td>" + str(record[i][5]) + "s</td></tr>"
+            item = "<tr><td>" + String(record[i][0]) + "</td><td>" + String(record[i][1]) +
+                '</td><td style="color:rgb(234, 67, 53)">' + String(record[i][2]) + "</td><td>" + String(record[i][3]) + "</td><td>" +
+                String(record[i][4]) + "</td><td>" + String(record[i][5]) + "s</td></tr>"
             $('table').append(item);
         } else {
             total_score += record[i][4];
-            item = "<tr><td>" + str(record[i][0]) + "</td><td>" + str(record[i][1]) +
-                '</td><td  style="color:rgb(52, 168, 83)">' + str(record[i][2]) + "</td><td>" + str(record[i][3]) + "</td><td>" +
-                str(record[i][4]) + "</td><td>" + str(record[i][5]) + "s</td></tr>"
+            item = "<tr><td>" + String(record[i][0]) + "</td><td>" + String(record[i][1]) +
+                '</td><td  style="color:rgb(52, 168, 83)">' + String(record[i][2]) + "</td><td>" + String(record[i][3]) + "</td><td>" +
+                String(record[i][4]) + "</td><td>" + String(record[i][5]) + "s</td></tr>"
             $('table').append(item);
         }
     }
     var statistic = "<tr><td>总计</td><td></td><td></td><td></td><td>" +
-        str(total_score.toFixed(2)) + "</td><td>" + str(total_time.toFixed(1)) + "s</td></tr>"
+        String(total_score.toFixed(2)) + "</td><td>" + String(total_time.toFixed(1)) + "s</td></tr>"
     console.log(statistic);
     $('table').append(statistic);
     $('.mask').css('display', 'block');
     $('.apprasial').css('display', 'block');
+    $('html').removeClass('scroll');
 }
 
 $('#ok').click(function (e) {
     var user_answer = $('.answer').val();
     $('.answer').val('');
     var now_score = 0;
-    if (str(user_answer) == now_problem_correct) {
+    if (String(user_answer) == now_problem_correct) {
         now_score = calcu_score(1);
     } else {
         now_score = calcu_score(0);
@@ -448,4 +460,7 @@ $('#back').click(function (e) {
     $('.mask').fadeOut();
     $('.apprasial').fadeOut();
     init();
+    $('.finish').css('display', 'block');
+    $('html,body').animate({scrollTop:0},'fast');
+    $('html').addClass('scroll');
 });
