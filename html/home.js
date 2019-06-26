@@ -41,6 +41,24 @@ $('.signup').click(function (e) {
     window.location.href = './website/signup/html/signup.html'+tail
 });
 
+$('.exercise').click(function (e) { 
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = './website/exercise/html/exercise.html'+tail
+});
+
+$('.rank').click(function (e) { 
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = './website/rank-list/html/rank-list.html'+tail
+});
+
 $(document).ready(function () {
     $('.middle-text').addClass('fadein');
     $('.middle-img').addClass('fadein');

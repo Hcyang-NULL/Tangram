@@ -1,20 +1,65 @@
-// Months start at 0 and the timer caluclates to Midnight
-// use month - 1 to get an accurate count down
+/*
+ * Author: Hcyang
+ * Time: 2019-06-25
+ */
 
+var loguser = ""
+//get parameters in url
+var url = location.search;
+var data = new Object();
+if(url.indexOf("?") != -1)
+{
+    var str = url.substr(1);
+    var strs = str.split("&");
+    for(var i = 0; i < strs.length; i++)
+    {
+        data[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+    }
+}
+if("loguser" in data)
+{
+    loguser = data["loguser"]
+    $('.user-id').children(':first').text(loguser);
+}
 
-
-$(document).ready(function () {
-    // alert($)
-    // $('.middle-text').addClass('fadein');
-    // $('.middle-img').addClass('fadein');
-    // setup();
-    // draw();
+$('.home').click(function (e) { 
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../../home.html'+tail
 });
 
+$('.login').click(function (e) { 
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../login/html/login.html'+tail
+});
 
+$('.signup').click(function (e) { 
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../signup/html/signup.html'+tail
+});
 
+$('.rank').click(function (e) { 
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../rank-list/html/rank-list.html'+tail
+});
 
-
+// Months start at 0 and the timer caluclates to Midnight
+// use month - 1 to get an accurate count down
 let ed = new Date(2019, 8 - 1, 13);
 
 function setup() {
@@ -28,24 +73,8 @@ function draw() {
     let timer = getTimer();
     clear();
 
-    if (timer.days.text <= 0 && timer.hours.text <= 0 && (timer.minutes.text) <= 0 && (timer.seconds.text) <=
-        0) {
+    if ((timer.seconds.text) <=0) {
         let zeroTime = {
-            // "days": {
-            //     "text": 0,
-            //     "remain": 0,
-            //     "map": -89
-            // },
-            // "hours": {
-            //     "text": 0,
-            //     "remain": 0,
-            //     "map": -89
-            // },
-            // "minutes": {
-            //     "text": 0,
-            //     "remain": 0,
-            //     "map": -89
-            // },
             "seconds": {
                 "text": 0,
                 "remain": 0,
@@ -69,9 +98,6 @@ function shapeCreator(timer) {
     stroke(220);
     strokeWeight(1);
     fill(255);
-    // ellipse(47, 35, 65, 65);
-    // ellipse(122, 35, 65, 65);
-    // ellipse(197, 35, 65, 65);
     ellipse(160, 65, 90, 90);
 
     stroke(48, 188, 200);
@@ -123,21 +149,6 @@ function getTimer() {
     let milli = ms * 1000;
 
     let finalTime = {
-        "days": {
-            "text": daysText,
-            "remain": hmsms,
-            "map": map(days, 365, 0, 269, -89)
-        },
-        "hours": {
-            "text": hoursText,
-            "remain": msms,
-            "map": map(hours * 24, 1440, 0, 269, -89)
-        },
-        "minutes": {
-            "text": minutesText,
-            "remain": sms,
-            "map": map(minutes * 60, 3600, 0, 269, -89)
-        },
         "seconds": {
             "text": secondsText,
             "remain": ms,
