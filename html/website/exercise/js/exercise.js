@@ -178,7 +178,7 @@ function hideMiddle() {
 }
 
 function init() {
-    $('.progress-rate').css('width', '2%');
+    $('.progress-rate').css('width', '0%');
     hideMiddle();
     $('#next-q').css('display', 'block');
     ed = -1;
@@ -230,6 +230,7 @@ function hideLoading() {
 }
 
 $('.easy').click(function (e) {
+    init();
     $('.easy').css('background-color', 'rgb(66, 133, 244)');
     $('.easy').css('border-radius', '20px');
     $('.easy').css('color', 'white');
@@ -257,6 +258,7 @@ $('.easy').click(function (e) {
 });
 
 $('.medium').click(function (e) {
+    init();
     $('.easy').css('background-color', 'white');
     $('.easy').css('color', 'black');
     $('.medium').css('background-color', 'rgb(251, 188, 5)');
@@ -284,6 +286,7 @@ $('.medium').click(function (e) {
 });
 
 $('.hard').click(function (e) {
+    init();
     $('.easy').css('background-color', 'white');
     $('.easy').css('color', 'black');
     $('.medium').css('background-color', 'white');
