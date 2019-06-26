@@ -527,6 +527,7 @@ a:hover {
   width: 100%;
   z-index: 251;
 
+
 }
 
 .table-container {
@@ -576,6 +577,8 @@ table th {
   text-align: center;
   opacity: 1;
   z-index: 253;
+  outline: none;
+  margin-bottom: 10%;
 }
 
 #back:hover {
@@ -708,4 +711,42 @@ table th {
 
 .table-container {
     overflow: auto;
+  top: 45%;
+}
+.error{
+  position: fixed;
+  width: 100%;
+  display: none;
+}
+.error-message-failed {
+  /* display: none; */
+  width: 20%;
+  height: 100px;
+  border-radius: 10px;
+  border: solid 1px rgba(255, 22, 22);
+  margin-top: 10%;
+  margin-left: 40%;
+  padding: 0;
+  position: relative;
+  color: rgba(224, 29, 29, 0.82);
+}
+.error-message-title {
+  margin-top: 4%;
+  margin-left: 5%;
+  font-size: 110%;
+  font-family: PingFangSC-Regular, sans-serif;
+}
+
+.error-message-content {
+  margin-left: 5%;
+  font-size: 80%;
+  margin-top: 3%;
+  font-family: PingFangSC-Regular, sans-serif;
+}
+
+.error-message-img {
+  height: 20px;
+  position: absolute;
+  top: 5%;
+  right: 3%;
 }
