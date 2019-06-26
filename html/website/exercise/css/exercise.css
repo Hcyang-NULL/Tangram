@@ -527,6 +527,7 @@ a:hover {
   width: 100%;
   z-index: 251;
 
+
 }
 
 .table-container {
@@ -576,6 +577,8 @@ table th {
   text-align: center;
   opacity: 1;
   z-index: 253;
+  outline: none;
+  margin-bottom: 10%;
 }
 
 #back:hover {
@@ -705,6 +708,7 @@ table th {
 .error{
   position: fixed;
   width: 100%;
+  display: none;
 }
 .error-message-failed {
   /* display: none; */
