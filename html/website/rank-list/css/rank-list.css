@@ -201,7 +201,7 @@ a:hover {
     height: 10%;
     width: 100%;
     /* border: solid 1px; */
-    
+
 }
 
 .hard-info {
@@ -269,6 +269,7 @@ a:hover {
     height: 70%;
     float: left;
 }
+
 /* tr:hover{
     transform: scale(1.1);
 } */
