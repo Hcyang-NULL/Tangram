@@ -8,6 +8,27 @@ const CODE_UNVERIFIED = 603;
 const CODE_SIGNIN_SUCC = 701;
 const CODE_UNKNOWN_ERR = 900;
 
+
+var loguser = ""
+//get parameters in url
+var url = location.search;
+var data = new Object();
+if(url.indexOf("?") != -1)
+{
+    var str = url.substr(1);
+    var strs = str.split("&");
+    for(var i = 0; i < strs.length; i++)
+    {
+        data[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+    }
+}
+if("loguser" in data)
+{
+    loguser = data["loguser"]
+    $('.user-id').children(':first').text(loguser);
+}
+
+
 var check_array = new Array(4).fill(0);
 
 //get parameters in url
@@ -192,9 +213,18 @@ $('form').submit(function (e) {
 
 });
 
+$('.home').click(function (e) { 
+    console.log('test')
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../../home.html'+tail
+});
 
 $('.signup').click(function (e) { 
-    var tail;
+    var tail = "";
     if(loguser != "")
     {
         tail = "?loguser="+loguser;
@@ -211,11 +241,20 @@ $('#signup').click(function (e) {
     window.location.href = '../../signup/html/signup.html'+tail
 });
 
-$('.home').click(function (e) { 
+$('.exercise').click(function (e) { 
     var tail = "";
     if(loguser != "")
     {
         tail = "?loguser="+loguser;
     }
-    window.location.href = '../../../home.html'+tail
+    window.location.href = '../../exercise/html/exercise.html'+tail
+});
+
+$('.rank').click(function (e) { 
+    var tail = "";
+    if(loguser != "")
+    {
+        tail = "?loguser="+loguser;
+    }
+    window.location.href = '../../rank-list/html/rank-list.html'+tail
 });
