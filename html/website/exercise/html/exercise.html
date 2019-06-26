@@ -10,15 +10,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="./exercise.css">
-    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/exercise.css">
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
+    <script src="../../../../p5/p5/p5.min.js"></script>
 </head>
 
 <body>
+    <div class="mask">
+        
+    </div>
+    <div class="apprasial">
+        <div class="table-title">
+            答题记录
+        </div>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <td>编号</td>
+                    <td>题目</td>
+                    <td>你的答案</td>
+                    <td>正确答案</td>
+                    <td>得分</td>
+                    <td>用时</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>(1+2)*5</td>
+                    <td>10</td>
+                    <td>15</td>
+                    <td>1.78</td>
+                    <td>5s</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>(1+2)*5</td>
+                    <td>10</td>
+                    <td>15</td>
+                    <td>1.78</td>
+                    <td>5s</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>(1+2)*5</td>
+                    <td>10</td>
+                    <td>15</td>
+                    <td>1.78</td>
+                    <td>5s</td>
+                </tr>
+            </table>
+            <input type="botton" id="back" value="返回"> 
+        </div>
+    </div>
     <div class="header">
         <div class="header-in">
             <div class="position">
-                <img src="./img/bird.png" alt="" class="logo">
+                <img src="../../../img/bird.png" alt="" class="logo">
                 <div class="navi">
                     <div class="home">
                         首页
@@ -41,25 +87,61 @@
             <div class="user-id">
                 用户名
             </div>
+            <div class="total-points">
+                总得分
+            </div>
         </div>
     </div>
 
 
     <div class="middle">
-        <div class="middle-up">
-            <div class="total-points">
-
+        <div class="difficulty">
+            <div class="title">
+                <div id="title-id">选择难度</div>
+            </div>
+            <div class="easy dx">
+                <div id="dx-id">简单</div>
+            </div>
+            <div class="medium dx">
+                <div id="dx-id">中等</div>
+            </div>
+            <div class="hard dx">
+                <div id="dx-id">困难</div>
             </div>
         </div>
-        <div class="middle-down">
-
+        <div class="progress-bar">
+            <div class="progress-rate"></div>
+        </div>
+        <div class="middle-top">
+            <div class="container">
+                <div id="sketch-holder"></div>
+            </div>
+        </div>
+        <div class="middle-bottom">
+            <div class="problem">
+                <div class="formula">
+                    (1+2)*5
+                </div>
+                <div class="equal">
+                    =
+                </div>
+                <input class="answer">
+            </div>
+        </div>
+        <div class="buttons">
+            <div>
+                <input type="submit" value="交卷" id="ok">
+            </div>
+            <div>
+                <input type="button" value="下一题" id="next-q">
+            </div>
         </div>
     </div>
 
     <div class="footer">
         Email:&nbsp;hcyangnull@gmail.com
     </div>
-    <script src="./exercise.js" type="text/javascript"></script>
+    <script src="../js/exercise.js" type="text/javascript"></script>
 </body>
 
 </html>
