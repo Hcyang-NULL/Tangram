@@ -14,6 +14,10 @@
   font-family: "footer-font";
   src: url('../../../font/footer.OTF');
 }
+@font-face {
+  font-family: "problem-font";
+  src: url('../../../font/AvenirLTStd-Book.otf');
+}
 
 @-webkit-keyframes fadeIn {
   0% {
@@ -271,8 +275,6 @@ a:hover {
 .points{
   height: 70%;
   float: left;
-  /* margin-top: 5%; */
-  /* clear: both; */
 }
 
 .progress-bar {
@@ -299,15 +301,17 @@ a:hover {
   top: 100px;
   left: 0;
   height: 500px;
-  /* bottom: 80px; */
   width: 120px;
-  /* border: solid 1px black; */
   border-bottom-right-radius: 10px;
   border-top-right-radius: 10px;
-  box-shadow: 3px 2px 3px rgb(134, 134, 134);
   background-color: white;
+  transition: transform 0.5s;
+  transform: translate(-119px, 0px);
 }
-
+.difficulty:hover{
+  transform: translate(0px, 0px);
+  box-shadow: 3px 2px 3px rgb(134, 134, 134);
+}
 .dx {
   float: left;
   width: 100%;
@@ -371,14 +375,9 @@ a:hover {
 
 
 .container {
-  /* margin-left: 200px; */
   margin-left: 10%;
   height: 100%;
   width: 80%;
-
-  /* background: azure; */
-
-  /* box-shadow: 0px 6px 20px #001; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -413,6 +412,7 @@ a:hover {
   /* text-align: center; */
   width: 60%;
   margin-left: 20%;
+  font-family: problem-font;
 }
 
 .formula {
