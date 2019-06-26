@@ -5,7 +5,7 @@ from code import Genfour
 def read(lever):
     if lever == 1:
         if os.path.isfile('test.txt') == False:
-            Genfour.Genfour(1)
+            Genfour(1)
         f=open("test.txt","r")
         list2=[]
         for line in f.readlines():
@@ -15,7 +15,7 @@ def read(lever):
         text = list2
     elif lever == 2:
         if os.path.isfile('test1.txt') == False:
-            Genfour.Genfour(2)
+            Genfour(2)
         f=open("test1.txt","r")
         list2=[]
         for line in f.readlines():
@@ -25,7 +25,7 @@ def read(lever):
         text = list2
     elif lever == 3:
         if os.path.isfile('test2.txt') == False:
-            Genfour.Genfour(3)
+            Genfour(3)
         f=open("test2.txt","r")
         list2=[]
         for line in f.readlines():
