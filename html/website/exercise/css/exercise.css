@@ -14,6 +14,10 @@
   font-family: "footer-font";
   src: url('../../../font/footer.OTF');
 }
+@font-face {
+  font-family: "problem-font";
+  src: url('../../../font/AvenirLTStd-Book.otf');
+}
 
 @-webkit-keyframes fadeIn {
   0% {
@@ -371,14 +375,9 @@ a:hover {
 
 
 .container {
-  /* margin-left: 200px; */
   margin-left: 10%;
   height: 100%;
   width: 80%;
-
-  /* background: azure; */
-
-  /* box-shadow: 0px 6px 20px #001; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -413,6 +412,7 @@ a:hover {
   /* text-align: center; */
   width: 60%;
   margin-left: 20%;
+  font-family: problem-font;
 }
 
 .formula {

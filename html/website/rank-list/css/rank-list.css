@@ -193,12 +193,15 @@ a:hover {
     height: 10%;
     width: 100%;
     /* border: solid 1px; */
+    /* background-color: rgb(234, 67, 53);
+    border-radius: 20px; */
 }
 
 .medium-info {
     height: 10%;
     width: 100%;
     /* border: solid 1px; */
+    
 }
 
 .hard-info {
