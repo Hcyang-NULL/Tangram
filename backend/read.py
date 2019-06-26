@@ -10,7 +10,7 @@ def read(lever):
         list2=[]
         for line in f.readlines():
             location=str(line).find('=')
-            list1 = [line[0:location+1],line[location+1:-1]]
+            list1 = [line[0:location],line[location+1:-1]]
             list2.append(list1)
         text = list2
     elif lever == 2:
@@ -20,7 +20,7 @@ def read(lever):
         list2=[]
         for line in f.readlines():
             location=str(line).find('=')
-            list1 = [line[0:location+1],line[location+1:-1]]
+            list1 = [line[0:location],line[location+1:-1]]
             list2.append(list1)
         text = list2
     elif lever == 3:
@@ -30,7 +30,7 @@ def read(lever):
         list2=[]
         for line in f.readlines():
             location=str(line).find('=')
-            list1 = [line[0:location+1],line[location+1:-1]]
+            list1 = [line[0:location],line[location+1:-1]]
             list2.append(list1)
         text = list2
     else:
