@@ -11,16 +11,14 @@ const MAX_USERID_LENGTH = 10;
 
 var loguser = window.localStorage.getItem("loguser");
 var page_score = window.localStorage.getItem("page_score")
-if(loguser == null)
-{
+if (loguser == null) {
     loguser = "未登录"
 }
-if(page_score == null)
-{
+if (page_score == null) {
     page_score = 0;
 }
 $('.user-id').children(':first').text(loguser);
-$('.points').children(':first').text("总积分："+String(page_score));
+$('.points').children(':first').text("总积分：" + String(page_score));
 
 var check_array = new Array(8).fill(0);
 
@@ -38,16 +36,16 @@ function eliminate_error(name, index, inputbox, error) {
     check_array[index - 1] = 0
 }
 
-$('#userid').focus(function (e) { 
+$('#userid').focus(function (e) {
     hideMessage()
 });
-$('#email').focus(function (e) { 
+$('#email').focus(function (e) {
     hideMessage()
 });
-$('#password1').focus(function (e) { 
+$('#password1').focus(function (e) {
     hideMessage()
 });
-$('#password2').focus(function (e) { 
+$('#password2').focus(function (e) {
     hideMessage()
 });
 
@@ -225,21 +223,16 @@ function HandleResponse(res) {
     unmask();
     var code = res.code;
     var msg = res.msg;
-    
-    if(code == CODE_DNAME_ERR)
-    {
+
+    if (code == CODE_DNAME_ERR) {
         error_input('.check3', 3, '#userid');
-    }
-    else if(code == CODE_SIGNUP_SUCC)
-    {
+    } else if (code == CODE_SIGNUP_SUCC) {
         $("#userid").val("");
         $("#email").val("");
         $("#password1").val("");
         $("#password2").val("");
         showMessageSucess('注册成功', '已发送身份验证邮件')
-    }
-    else
-    {
+    } else {
         showMessageFailed('十分抱歉', '服务器开了小差，请稍后再试')
     }
 }
@@ -251,8 +244,7 @@ function ErrorNetwork() {
 $('form').submit(function (e) {
     e.preventDefault();
 
-    if(!$('#protocol').get(0).checked)
-    {
+    if (!$('#protocol').get(0).checked) {
         return;
     }
 
@@ -268,8 +260,7 @@ $('form').submit(function (e) {
         }
     }
 
-    if(global_error)
-    {
+    if (global_error) {
         return;
     }
 
@@ -288,7 +279,7 @@ $('form').submit(function (e) {
         url: "http://119.23.248.43/signup",
         data: JSON.stringify(data),
         dataType: "json",
-        contentType : "application/json",
+        contentType: "application/json",
         success: function (response) {
             unmask();
             console.log(response);
@@ -298,7 +289,7 @@ $('form').submit(function (e) {
             unmask();
             ErrorNetwork();
         },
-        complete: function () { 
+        complete: function () {
             unmask();
         }
     });
@@ -306,32 +297,40 @@ $('form').submit(function (e) {
     return;
 });
 
-$('#protocol').change(function (e) { 
-    if(e.target.checked)
-    {
+$('#protocol').change(function (e) {
+    if (e.target.checked) {
         $('#submit').css('background-color', 'rgb(0, 168, 98)');
         $('#submit').addClass('submit-active');
-    }
-    else
-    {
+    } else {
         $('#submit').css('background-color', 'rgb(194, 194, 194)');
         $('#submit').removeClass('submit-active');
     }
 });
 
-$('.home').click(function (e) { 
+$('.home').click(function (e) {
     window.location.href = '../../../home.html'
 });
 
-$('.login').click(function (e) { 
+$('.login').click(function (e) {
     window.location.href = '../../login/html/login.html'
 });
 
-$('.exercise').click(function (e) { 
+$('.exercise').click(function (e) {
 
     window.location.href = '../../exercise/html/exercise.html'
 });
 
 $('.rank').click(function (e) {
     window.location.href = '../../rank-list/html/rank-list.html'
+});
+
+$(document).ready(function () {
+    $(".user-info").hover(function () {
+        $(".user-msg").fadeIn();
+        $(".user-info").css("background-color", "#1a87e8")
+    }, function () {
+        $(".user-info").css("background-color", "#f7f7f700")
+        $(".user-msg").fadeOut(100);
+
+    });
 });

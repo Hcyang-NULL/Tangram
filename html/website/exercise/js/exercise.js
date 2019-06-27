@@ -27,16 +27,14 @@ var now_score = 321.56;
 
 var loguser = window.localStorage.getItem("loguser");
 var page_score = window.localStorage.getItem("page_score")
-if(loguser == null)
-{
+if (loguser == null) {
     loguser = "未登录"
 }
-if(page_score == null)
-{
+if (page_score == null) {
     page_score = 0;
 }
 $('.user-id').children(':first').text(loguser);
-$('.points').children(':first').text("总积分："+String(page_score));
+$('.points').children(':first').text("总积分：" + String(page_score));
 
 $('.home').click(function (e) {
     window.location.href = '../../../home.html'
@@ -474,7 +472,7 @@ function fill_table() {
         String(total_score.toFixed(2)) + "</td><td>" + String(total_time.toFixed(1)) + "s</td></tr>"
     console.log(statistic);
     add_score = total_score;
-    
+
     $('table').append(statistic);
     $('.mask').css('display', 'block');
     $('.apprasial').css('display', 'block');
@@ -543,13 +541,24 @@ $('#back').click(function (e) {
     }, 'fast');
     $('html').addClass('scroll');
 
-    $('.add-points').text("+"+String(temp_score));
-    $('.add-points').fadeIn(1000);  
+    $('.add-points').text("+" + String(temp_score));
+    $('.add-points').fadeIn(1000);
     setTimeout(() => {
         $('.add-points').fadeOut(1000);
     }, 1500);
-    page_score = parseFloat((parseFloat(page_score)+parseFloat(temp_score)).toFixed(2));
+    page_score = parseFloat((parseFloat(page_score) + parseFloat(temp_score)).toFixed(2));
     console.log(page_score)
     window.localStorage.setItem('page_score', page_score);
-    $('.points').text("总积分："+String(page_score));
+    $('.points').text("总积分：" + String(page_score));
+});
+
+$(document).ready(function () {
+    $(".user-info").hover(function () {
+        $(".user-msg").fadeIn();
+        $(".user-info").css("background-color", "#1a87e8")
+    }, function () {
+        $(".user-info").css("background-color", "#f7f7f700")
+        $(".user-msg").fadeOut(100);
+
+    });
 });

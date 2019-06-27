@@ -272,29 +272,7 @@ a:hover {
     -webkit-animation-delay: 0s;
 }
 
-/* .middle:hover .middle-img {
-  transition: transform 1s;
-  transform: translate(0px, 0px);
-  -webkit-animation-name: fadeIn;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-delay: 0s;
 
-}
-
-.middle:hover .middle-text {
-  transition: transform 1s;
-  transform: translate(0px, 0px);
-  -webkit-animation-name: fadeIn;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-delay: 0s;
-} */
-.user-id {
-    float: right;
-    margin-right: 1%;
-    padding: 13px;
-}
 
 .total-points {
     float: right;
@@ -322,4 +300,32 @@ a:hover {
 .points {
     height: 70%;
     float: left;
+}
+
+.user-info {
+    float: right;
+    background-color: #f7f7f7;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 12px;
+    text-align: center;
+}
+
+.user-id {
+    width: 100%;
+}
+
+.user-msg {
+    display: none;
+    width: 100%;
+    margin-top: 30%;
+}
+
+.msg {
+    font-size: 70%;
+    width: 100%;
+    margin-top: 10%;
+    margin-bottom: 20%;
 }

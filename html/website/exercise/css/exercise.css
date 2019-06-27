@@ -245,12 +245,6 @@ a:hover {
     margin-top: 2%;
 }
 
-.user-id {
-    float: right;
-    margin-right: 1%;
-    padding: 13px;
-}
-
 .total-points {
     float: right;
     padding-top: 13px;
@@ -724,4 +718,32 @@ table th {
     position: absolute;
     top: 5%;
     right: 3%;
+}
+
+.user-info {
+    float: right;
+    background-color: #f7f7f7;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 12px;
+    text-align: center;
+}
+
+.user-id {
+    width: 100%;
+}
+
+.user-msg {
+    display: none;
+    width: 100%;
+    margin-top: 30%;
+}
+
+.msg {
+    font-size: 70%;
+    width: 100%;
+    margin-top: 10%;
+    margin-bottom: 20%;
 }
