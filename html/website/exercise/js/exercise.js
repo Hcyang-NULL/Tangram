@@ -3,6 +3,8 @@
  * Time: 2019-06-25
  */
 
+// window.localStorage.clear();
+
 const TOTAL_PROBLEM = 3;
 
 let ed = -1;
@@ -18,56 +20,38 @@ let now_problem_correct = "";
 let now_level = -1;
 let now_time;
 let record = [];
+let total_correct = 0;
 let add_score = 0;
 
-var now_score = 1000;
+var now_score = 321.56;
 
-var loguser = ""
-//get parameters in url
-var url = location.search;
-var data = new Object();
-if (url.indexOf("?") != -1) {
-    var str = url.substr(1);
-    var strs = str.split("&");
-    for (var i = 0; i < strs.length; i++) {
-        data[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
-    }
+var loguser = window.localStorage.getItem("loguser");
+var page_score = window.localStorage.getItem("page_score")
+if(loguser == null)
+{
+    loguser = "未登录"
 }
-if ("loguser" in data) {
-    loguser = data["loguser"]
-    $('.user-id').children(':first').text(loguser);
+if(page_score == null)
+{
+    page_score = 0;
 }
+$('.user-id').children(':first').text(loguser);
+$('.points').children(':first').text("总积分："+String(page_score));
 
 $('.home').click(function (e) {
-    var tail = "";
-    if (loguser != "") {
-        tail = "?loguser=" + loguser;
-    }
-    window.location.href = '../../../home.html' + tail
+    window.location.href = '../../../home.html'
 });
 
 $('.login').click(function (e) {
-    var tail = "";
-    if (loguser != "") {
-        tail = "?loguser=" + loguser;
-    }
-    window.location.href = '../../login/html/login.html' + tail
+    window.location.href = '../../login/html/login.html'
 });
 
 $('.signup').click(function (e) {
-    var tail = "";
-    if (loguser != "") {
-        tail = "?loguser=" + loguser;
-    }
-    window.location.href = '../../signup/html/signup.html' + tail
+    window.location.href = '../../signup/html/signup.html'
 });
 
 $('.rank').click(function (e) {
-    var tail = "";
-    if (loguser != "") {
-        tail = "?loguser=" + loguser;
-    }
-    window.location.href = '../../rank-list/html/rank-list.html' + tail
+    window.location.href = '../../rank-list/html/rank-list.html'
 });
 
 function setup() {
@@ -197,7 +181,8 @@ function init() {
     now_level = -1;
     now_time;
     record = [];
-    add_score = 0
+    add_score = 0;
+    total_correct = 0;
     $('table').empty();
 }
 
@@ -441,6 +426,27 @@ $('#next-q').click(function (e) {
     $('.progress-rate').css('width', rate);
 });
 
+function update_data() {
+
+    var data = new Object()
+    data.username = loguser;
+    data.score = page_score;
+    data.correct = total_correct;
+    data.total = now_problem_index;
+    data.level = now_level
+    data.record = record;
+
+    $.ajax({
+        type: "POST",
+        url: "http://119.23.248.43/update",
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (response) {
+            console.log(response)
+        }
+    });
+}
+
 function fill_table() {
     console.log(record);
     var total_score = 0;
@@ -456,6 +462,7 @@ function fill_table() {
                 String(record[i][4]) + "</td><td>" + String(record[i][5]) + "s</td></tr>"
             $('table').append(item);
         } else {
+            total_correct++;
             total_score += record[i][4];
             item = "<tr><td>" + String(record[i][0]) + "</td><td>" + String(record[i][1]) +
                 '</td><td  style="color:rgb(52, 168, 83)">' + String(record[i][2]) + "</td><td>" + String(record[i][3]) + "</td><td>" +
@@ -472,6 +479,8 @@ function fill_table() {
     $('.mask').css('display', 'block');
     $('.apprasial').css('display', 'block');
     $('html').removeClass('scroll');
+
+    update_data();
 }
 
 $('#ok').click(function (e) {
@@ -526,7 +535,7 @@ function onKeyPress(e) {
 $('#back').click(function (e) {
     $('.mask').fadeOut();
     $('.apprasial').fadeOut();
-    var temp_score = add_score;
+    var temp_score = parseFloat((add_score).toFixed(2));
     init();
     $('.finish').css('display', 'block');
     $('html,body').animate({
@@ -535,10 +544,12 @@ $('#back').click(function (e) {
     $('html').addClass('scroll');
 
     $('.add-points').text("+"+String(temp_score));
-    $('.add-points').fadeIn(1000);
+    $('.add-points').fadeIn(1000);  
     setTimeout(() => {
         $('.add-points').fadeOut(1000);
     }, 1500);
-    var new_score = now_score+temp_score;
-    $('.points').text("总积分："+String(new_score));
+    page_score = parseFloat((parseFloat(page_score)+parseFloat(temp_score)).toFixed(2));
+    console.log(page_score)
+    window.localStorage.setItem('page_score', page_score);
+    $('.points').text("总积分："+String(page_score));
 });

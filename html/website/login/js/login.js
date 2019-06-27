@@ -9,24 +9,18 @@ const CODE_SIGNIN_SUCC = 701;
 const CODE_UNKNOWN_ERR = 900;
 
 
-var loguser = ""
-//get parameters in url
-var url = location.search;
-var data = new Object();
-if(url.indexOf("?") != -1)
+var loguser = window.localStorage.getItem("loguser");
+var page_score = window.localStorage.getItem("page_score")
+if(loguser == null)
 {
-    var str = url.substr(1);
-    var strs = str.split("&");
-    for(var i = 0; i < strs.length; i++)
-    {
-        data[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
-    }
+    loguser = "未登录"
 }
-if("loguser" in data)
+if(page_score == null)
 {
-    loguser = data["loguser"]
-    $('.user-id').children(':first').text(loguser);
+    page_score = 0;
 }
+$('.user-id').children(':first').text(loguser);
+$('.points').children(':first').text("总积分："+String(page_score));
 
 
 var check_array = new Array(4).fill(0);
@@ -156,7 +150,10 @@ function HandleResponse(res, username) {
     else if(code == CODE_SIGNIN_SUCC)
     {
         loguser = username;
-        window.location.href = '../../../home.html?loguser='+loguser;
+        console.log(res)
+        window.localStorage.setItem('loguser',username);
+        window.localStorage.setItem('page_score', res.score);
+        window.location.href = '../../../home.html';
     }
     else if(code == CODE_UNVERIFIED)
     {
@@ -214,47 +211,21 @@ $('form').submit(function (e) {
 });
 
 $('.home').click(function (e) { 
-    console.log('test')
-    var tail = "";
-    if(loguser != "")
-    {
-        tail = "?loguser="+loguser;
-    }
-    window.location.href = '../../../home.html'+tail
+    window.location.href = '../../../home.html'
 });
 
 $('.signup').click(function (e) { 
-    var tail = "";
-    if(loguser != "")
-    {
-        tail = "?loguser="+loguser;
-    }
-    window.location.href = '../../signup/html/signup.html'+tail
+    window.location.href = '../../signup/html/signup.html'
 });
 
 $('#signup').click(function (e) { 
-    var tail = "";
-    if(loguser != "")
-    {
-        tail = "?loguser="+loguser;
-    }
-    window.location.href = '../../signup/html/signup.html'+tail
+    window.location.href = '../../signup/html/signup.html'
 });
 
 $('.exercise').click(function (e) { 
-    var tail = "";
-    if(loguser != "")
-    {
-        tail = "?loguser="+loguser;
-    }
-    window.location.href = '../../exercise/html/exercise.html'+tail
+    window.location.href = '../../exercise/html/exercise.html'
 });
 
 $('.rank').click(function (e) { 
-    var tail = "";
-    if(loguser != "")
-    {
-        tail = "?loguser="+loguser;
-    }
-    window.location.href = '../../rank-list/html/rank-list.html'+tail
+    window.location.href = '../../rank-list/html/rank-list.html'
 });

@@ -8,24 +8,19 @@ const CODE_SIGNUP_SUCC = 700;
 const CODE_UNKNOWN_ERR = 900;
 const MAX_USERID_LENGTH = 10;
 
-var loguser = ""
-//get parameters in url
-var url = location.search;
-var data = new Object();
-if(url.indexOf("?") != -1)
+
+var loguser = window.localStorage.getItem("loguser");
+var page_score = window.localStorage.getItem("page_score")
+if(loguser == null)
 {
-    var str = url.substr(1);
-    var strs = str.split("&");
-    for(var i = 0; i < strs.length; i++)
-    {
-        data[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
-    }
+    loguser = "未登录"
 }
-if("loguser" in data)
+if(page_score == null)
 {
-    loguser = data["loguser"]
-    $('.user-id').children(':first').text(loguser);
+    page_score = 0;
 }
+$('.user-id').children(':first').text(loguser);
+$('.points').children(':first').text("总积分："+String(page_score));
 
 var check_array = new Array(8).fill(0);
 
@@ -325,37 +320,18 @@ $('#protocol').change(function (e) {
 });
 
 $('.home').click(function (e) { 
-    var tail = "";
-    if(loguser != "")
-    {
-        tail = "?loguser="+loguser;
-    }
-    window.location.href = '../../../home.html'+tail
+    window.location.href = '../../../home.html'
 });
 
 $('.login').click(function (e) { 
-    var tail = "";
-    if(loguser != "")
-    {
-        tail = "?loguser="+loguser;
-    }
-    window.location.href = '../../login/html/login.html'+tail
+    window.location.href = '../../login/html/login.html'
 });
 
 $('.exercise').click(function (e) { 
-    var tail = "";
-    if(loguser != "")
-    {
-        tail = "?loguser="+loguser;
-    }
-    window.location.href = '../../exercise/html/exercise.html'+tail
+
+    window.location.href = '../../exercise/html/exercise.html'
 });
 
-$('.rank').click(function (e) { 
-    var tail = "";
-    if(loguser != "")
-    {
-        tail = "?loguser="+loguser;
-    }
-    window.location.href = '../../rank-list/html/rank-list.html'+tail
+$('.rank').click(function (e) {
+    window.location.href = '../../rank-list/html/rank-list.html'
 });
