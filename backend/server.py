@@ -53,10 +53,12 @@ def sendEmail(email, username, verify):
         smtp.sendmail(c.EMAIL_NAME, email, msg.as_string()) 
         smtp.quit()
     except TimeoutException as e:
+        print(e)
         log(('发送邮件失败\n目标邮箱:%s\n时间:%s\n具体信息:\n%s')%(email, str(getTime(False)), str(e)))
         print(e)
         return 1
     except Exception as e:
+        print(e)
         log(('发送邮件失败\n目标邮箱:%s\n时间:%s\n具体信息:\n%s')%(email, str(getTime(False)), str(e)))
         print(e)
         return 1
@@ -125,6 +127,7 @@ async def SignInHandler(request):
         return web.json_response(response_dict)
 
     except Exception as e:
+        print(e)
         cursor.close()
         response_dict['code'] = 900
         response_dict['msg'] = '服务暂不可用'
@@ -177,6 +180,7 @@ async def SignUpHandler(request):
             return web.json_response(response_dict)
 
     except Exception as e:
+        print(e)
         cursor.close()
         db.rollback()
         log(("注册出现未知错误:\n%s\n时间: %s具体信息:\n%s")%(str(e), str(getTime(False), str(e))))
@@ -236,6 +240,7 @@ async def VerifyHandler(request):
         return web.Response(text="激活失败，若为正常操作，请联系官方人员处理（首页有邮箱地址）")
 
     except Exception as e:
+        print(e)
         cursor.close()
         db.rollback()
         log(("激活出现未知错误:\nusername:%s verify:%s\n具体信息:\n%s\n时间: %s具体信息:\n%s")%(username, verify, str(e), str(getTime(False), str(e))))
@@ -258,6 +263,7 @@ async def GetProblemHandler(request):
         return web.json_response(response_dict)
 
     except Exception as e:
+        print(e)
         log(("获取题目发生未知错误:\n%s\n时间: %s具体信息:\n%s")%(str(e), str(getTime(False), str(e))))
         response_dict['code'] = 900
         response_dict['msg'] = "服务暂不可用"
@@ -379,11 +385,32 @@ async def UpdateHandler(request):
         return web.json_response(response_dict)
 
     except Exception as e:
+        print(e)
         cursor.close()
         db.rollback()
         log(("更新数据出现未知错误:\n%s\n时间: %s具体信息:\n%s")%(str(e), str(getTime(False)), str(e)))
         response_dict['code'] = 900
         response_dict['msg'] = "服务暂不可用"
+        return web.json_response(response_dict)
+
+
+async def GetRankHandler(request):
+    print("\n>> Request rank")
+    try:
+        data = await request.json()
+        username = data['username']
+        response_dict = {}
+
+        db = connect()
+        cursor = db.cursor()
+
+        
+
+    except Exception as e:
+        print(e)
+        log(("获取排行榜数据出现未知错误:\n用户: %s\n时间: %s\n具体信息: %s")%(username, str(getTime(False)), str(e)))
+        response_dict['code'] = 900
+        response_dict['msg'] = '服务暂不可用'
         return web.json_response(response_dict)
 
 
@@ -394,6 +421,7 @@ def init(app):
     app.router.add_post('/signin', SignInHandler)
     app.router.add_post('/getproblem', GetProblemHandler)
     app.router.add_post('/update', UpdateHandler)
+    app.router.add_post('/getrank', GetRankHandler)
 
 if __name__ == "__main__":
     app = web.Application()
