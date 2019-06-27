@@ -1,4 +1,7 @@
 CREATE DATABASE tangram;
 CREATE TABLE Information (username varchar(20) NOT NULL PRIMARY KEY, pwd varchar(20) NOT NULL, email varchar(40) NOT NULL, verify int(4) NOT NULL);
-CREATE TABLE Grecord (username varchar(20) PRIMARY KEY, score int(10) NOT NULL, correct int(10) NOT NULL, total int(10) NOT NULL);
-CREATE TABLE Precord (username varchar(20) )
+CREATE TABLE Grecord (username varchar(20) PRIMARY KEY, score float(10,2) NOT NULL, correct int(10) NOT NULL, total int(10) NOT NULL);
+CREATE TABLE Precord (username varchar(20), difficulty int(1), pointer int(10) NOT NULL, PRIMARY KEY(username, difficulty));
+CREATE TABLE Srecord (username varchar(20), position int(3), isright int(1) NOT NULL, usetime float(4,2) NOT NULL, PRIMARY KEY(username, position));
+CREATE TABLE Mrecord (username varchar(20), position int(3), isright int(1) NOT NULL, usetime float(4,2) NOT NULL, PRIMARY KEY(username, position));
+CREATE TABLE Hrecord (username varchar(20), position int(3), isright int(1) NOT NULL, usetime float(4,2) NOT NULL, PRIMARY KEY(username, position));
