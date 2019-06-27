@@ -247,31 +247,33 @@ a:hover {
 
 .total-points {
     float: right;
-    padding-top: 13px;
-    width: 13%;
-
-
+    width: 10%;
+    height: 100%;
 }
 
 .star {
     height: 23px;
     float: left;
     margin-left: 2%;
+    margin-top: 8%;
 }
 
 .add-points {
-    position: absolute;
     display: none;
     height: 20%;
     color: rgb(0, 168, 98);
     font-size: 80%;
-    transform: translateY(-15px) translateX(100px);
+    margin-right: 20%;
+    margin-top: -11%;
+    margin-bottom: -2.5%;
     text-align: right;
 }
 
 .points {
     height: 70%;
     float: left;
+    font-size: 85%;
+    margin-top: 10%;
 }
 
 .progress-bar {
@@ -727,8 +729,9 @@ table th {
     border-bottom-right-radius: 10px;
     padding-left: 1%;
     padding-right: 1%;
-    padding-top: 12px;
+    padding-top: 14px;
     text-align: center;
+    font-size: 85%;
 }
 
 .user-id {
@@ -738,12 +741,18 @@ table th {
 .user-msg {
     display: none;
     width: 100%;
-    margin-top: 30%;
+    margin-top: 20%;
 }
 
 .msg {
-    font-size: 70%;
+    font-size: 80%;
     width: 100%;
-    margin-top: 10%;
-    margin-bottom: 20%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    margin-bottom: 10%;
+    border-radius: 10px;
+}
+
+.msg:hover {
+    background-color: rgb(0, 168, 98);
 }

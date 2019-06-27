@@ -12,7 +12,7 @@ if (loguser == null) {
 if (page_score == null) {
     page_score = 0;
 }
-$('.user-id').children(':first').text(loguser);
+$('.user-id').children(':first').text("当前用户：" + loguser);
 $('.points').children(':first').text("总积分：" + String(page_score));
 
 $('.login').click(function (e) {
