@@ -317,7 +317,7 @@ async def UpdateHandler(request):
             now_score += record[i][4]
         now_correct += correct
         now_total += total
-        sql = ("UPDATE Grecord SET score=%.2f,correct=%d,total=%d")%(now_score, now_correct, now_total)
+        sql = ("UPDATE Grecord SET score=%.2f,correct=%d,total=%d WHERE username='%s'")%(now_score, now_correct, now_total, username)
         print(sql)
         cursor.execute(sql)
 
@@ -394,8 +394,8 @@ async def UpdateHandler(request):
         return web.json_response(response_dict)
 
 
-async def GetRankHandler(request):
-    print("\n>> Request rank")
+async def GetScoreRankHandler(request):
+    print("\n>> Request score rank")
     try:
         data = await request.json()
         username = data['username']
@@ -404,11 +404,216 @@ async def GetRankHandler(request):
         db = connect()
         cursor = db.cursor()
 
+        rd_vari = "@tangram"+str(rd.randint(1,1000000))
+        sql = ("SET %s = 0")%(rd_vari)
+        cursor.execute(sql)
+        sql = ("SELECT * FROM (SELECT (%s := %s + 1) as row, username from score_rank) a where username='%s'")%(rd_vari, rd_vari, username)
+        print(sql)
+        cursor.execute(sql)
+        results = cursor.fetchall()
+
+        if len(results) != 1:
+            if len(results) == 0:
+                log(("获取总积分排名时找不到用户: %s\n时间: %s")%(username, str(getTime(False))))
+                response_dict['code'] = 604
+                response_dict['msg'] = '错误'
+                return web.json_response(response_dict)
+            elif len(results) > 1:
+                log(("获取总积分排名时存在多个重名用户: %s\n时间: %s")%(username, str(getTime(False))))
+                response_dict['code'] = 605
+                response_dict['msg'] = '错误'
+                return web.json_response(response_dict)
+            else:
+                log(("获取总积分排名时用户个数为负数: %s\n时间: %s")%(username, str(getTime(False))))
+                response_dict['code'] = 900
+                response_dict['msg'] = '错误'
+                return web.json_response(response_dict)
         
+        row = results[0][0]
+        sql = ("SELECT * FROM Grecord")
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        total_rows = len(results)
+        print('total row:' + str(total_rows))
+        few = False
+        
+        if total_rows < c.BEFORE + c.AFTER + 1:
+            few = True
+        else:
+            before = row-c.BEFORE
+            if before <= 0:
+                row += -(before-1)
+            after = row+c.AFTER
+            if after > total_rows:
+                row -= (after-total_rows)
+        
+        print('few: '+str(few))
+        if few:
+            sql = ("select * from score_rank")
+            cursor.execute(sql)
+        else:
+            sql = ("SET %s = 0")%(rd_vari)
+            cursor.execute(sql)
+            sql = ("select * from (select (%s := %s + 1) as row, username, score from score_rank) a where a.row >= %d and a.row <= %d")%(rd_vari, rd_vari, before, after)
+            print(sql)
+            cursor.execute(sql)
+
+        results = cursor.fetchall()
+        reslist = []
+        print('results row: '+str(len(results)))
+        for i in range(len(results)):
+            temp = []
+            for j in range(3):
+                temp.append(results[i][j])
+            reslist.append(temp)
+        
+        db.commit()
+        response_dict['code'] = 704
+        response_dict['msg'] = '获取总分榜成功'
+        response_dict['grecord'] = reslist
+
+        return web.json_response(response_dict)
 
     except Exception as e:
         print(e)
-        log(("获取排行榜数据出现未知错误:\n用户: %s\n时间: %s\n具体信息: %s")%(username, str(getTime(False)), str(e)))
+        db.rollback()
+        log(("获取总积分排名时数据出现未知错误:\n用户: %s\n时间: %s\n具体信息: %s")%(username, str(getTime(False)), str(e)))
+        response_dict['code'] = 900
+        response_dict['msg'] = '服务暂不可用'
+        return web.json_response(response_dict)
+
+
+async def GetEasyDataHandler(request):
+    print('\n>> Request easy data')
+    try:
+        data = await request.json()
+        username = data['username']
+        response_dict = {}
+
+        db = connect()
+        cursor = db.cursor()
+
+        sql = ("SELECT isright,usetime FROM Srecord WHERE username='%s'")%(username)
+        cursor.execute(sql)
+        results = cursor.fetchall()
+
+        total_num = len(results)
+        total_correct = 0
+        total_time = 0.0
+
+        for i in range(len(results)):
+            if results[i][0] == 1:
+                total_correct += 1
+            total_time += results[0][1]
+        
+        if total_num != 0:
+            acc_rate = round(float(total_correct)/total_num, 2)
+            time_rate = round(total_time/total_num, 2)
+        else:
+            acc_rate = 0
+            time_rate = 0
+
+        response_dict['code'] = 705
+        response_dict['msg'] = "获取简单模式数据成功"
+        response_dict['acc_rate'] = acc_rate
+        response_dict['time_rate'] = time_rate
+
+        return web.json_response(response_dict)
+
+    except Exception as e:
+        print(e)
+        log(("获取简单难度数据时出现未知错误:\n用户: %s\n时间: %s\n具体信息: %s")%(username, str(getTime(False)), str(e)))
+        response_dict['code'] = 900
+        response_dict['msg'] = '服务暂不可用'
+        return web.json_response(response_dict)
+
+
+async def GetMediumDataHandler(request):
+    print('\n>> Request medium data')
+    try:
+        data = await request.json()
+        username = data['username']
+        response_dict = {}
+
+        db = connect()
+        cursor = db.cursor()
+
+        sql = ("SELECT isright,usetime FROM Mrecord WHERE username='%s'")%(username)
+        cursor.execute(sql)
+        results = cursor.fetchall()
+
+        total_num = len(results)
+        total_correct = 0
+        total_time = 0.0
+
+        for i in range(len(results)):
+            if results[i][0] == 1:
+                total_correct += 1
+            total_time += results[0][1]
+        
+        if total_num != 0:
+            acc_rate = round(float(total_correct)/total_num, 2)
+            time_rate = round(total_time/total_num, 2)
+        else:
+            acc_rate = 0
+            time_rate = 0
+            
+
+        response_dict['code'] = 706
+        response_dict['msg'] = "获取中等模式数据成功"
+        response_dict['acc_rate'] = acc_rate
+        response_dict['time_rate'] = time_rate
+
+        return web.json_response(response_dict)
+
+    except Exception as e:
+        print(e)
+        log(("获取中等难度数据时出现未知错误:\n用户: %s\n时间: %s\n具体信息: %s")%(username, str(getTime(False)), str(e)))
+        response_dict['code'] = 900
+        response_dict['msg'] = '服务暂不可用'
+        return web.json_response(response_dict)
+
+
+async def GetHardDataHandler(request):
+    print('\n>> Request hard data')
+    try:
+        data = await request.json()
+        username = data['username']
+        response_dict = {}
+
+        db = connect()
+        cursor = db.cursor()
+
+        sql = ("SELECT isright,usetime FROM Hrecord WHERE username='%s'")%(username)
+        cursor.execute(sql)
+        results = cursor.fetchall()
+
+        total_num = len(results)
+        total_correct = 0
+        total_time = 0.0
+
+        for i in range(len(results)):
+            if results[i][0] == 1:
+                total_correct += 1
+            total_time += results[0][1]
+        
+        if total_num != 0:
+            acc_rate = round(float(total_correct)/total_num, 2)
+            time_rate = round(total_time/total_num, 2)
+        else:
+            acc_rate = 0
+            time_rate = 0
+
+        response_dict['code'] = 707
+        response_dict['msg'] = "获取困难模式数据成功"
+        response_dict['acc_rate'] = acc_rate
+        response_dict['time_rate'] = time_rate
+
+        return web.json_response(response_dict)
+
+    except Exception as e:
+        print(e)
+        log(("获取困难难度数据时出现未知错误:\n用户: %s\n时间: %s\n具体信息: %s")%(username, str(getTime(False)), str(e)))
         response_dict['code'] = 900
         response_dict['msg'] = '服务暂不可用'
         return web.json_response(response_dict)
@@ -421,7 +626,10 @@ def init(app):
     app.router.add_post('/signin', SignInHandler)
     app.router.add_post('/getproblem', GetProblemHandler)
     app.router.add_post('/update', UpdateHandler)
-    app.router.add_post('/getrank', GetRankHandler)
+    app.router.add_post('/getscorerank', GetScoreRankHandler)
+    app.router.add_post('/geteasydata', GetEasyDataHandler)
+    app.router.add_post('/getmediumdata', GetMediumDataHandler)
+    app.router.add_post('/getharddata', GetHardDataHandler)
 
 if __name__ == "__main__":
     app = web.Application()

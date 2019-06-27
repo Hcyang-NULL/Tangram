@@ -5,3 +5,13 @@ CREATE TABLE Precord (username varchar(20), difficulty int(1), pointer int(10) N
 CREATE TABLE Srecord (username varchar(20), position int(3), isright int(1) NOT NULL, usetime float(4,2) NOT NULL, PRIMARY KEY(username, position));
 CREATE TABLE Mrecord (username varchar(20), position int(3), isright int(1) NOT NULL, usetime float(4,2) NOT NULL, PRIMARY KEY(username, position));
 CREATE TABLE Hrecord (username varchar(20), position int(3), isright int(1) NOT NULL, usetime float(4,2) NOT NULL, PRIMARY KEY(username, position));
+
+CREATE VIEW score_rank AS SELECT * FROM Grecord ORDER BY score DESC;
+
+获得行号:
+set @mycnt = 0;
+select * from (select (@mycnt := @mycnt + 1) as row, username from score_rank) a where username='hcy';
+
+获得范围数据
+set @mycnt = 0;
+select * from (select (@mycnt := @mycnt + 1) as row, username, score from score_rank) a where a.row > 14 and a.row < 24;
