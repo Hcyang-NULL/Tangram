@@ -76,6 +76,8 @@ async def SignInHandler(request):
 
         db = connect()
         cursor = db.cursor()
+        print(username)
+        print(password)
         sql = ("SELECT verify FROM Information WHERE username='%s' AND pwd='%s'")%(username, password)
         print(sql)
         cursor.execute(sql)
@@ -451,6 +453,16 @@ async def GetScoreRankHandler(request):
         if few:
             sql = ("select * from score_rank")
             cursor.execute(sql)
+
+            results = cursor.fetchall()
+            reslist = []
+            print('results row: '+str(len(results)))
+            for i in range(len(results)):
+                temp = []
+                temp.append(i+1)
+                for j in range(2):
+                    temp.append(results[i][j])
+                reslist.append(temp)
         else:
             sql = ("SET %s = 0")%(rd_vari)
             cursor.execute(sql)
@@ -458,14 +470,14 @@ async def GetScoreRankHandler(request):
             print(sql)
             cursor.execute(sql)
 
-        results = cursor.fetchall()
-        reslist = []
-        print('results row: '+str(len(results)))
-        for i in range(len(results)):
-            temp = []
-            for j in range(3):
-                temp.append(results[i][j])
-            reslist.append(temp)
+            results = cursor.fetchall()
+            reslist = []
+            print('results row: '+str(len(results)))
+            for i in range(len(results)):
+                temp = []
+                for j in range(3):
+                    temp.append(results[i][j])
+                reslist.append(temp)
         
         db.commit()
         response_dict['code'] = 704

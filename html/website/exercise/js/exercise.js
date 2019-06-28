@@ -27,14 +27,7 @@ var now_score = 321.56;
 
 var loguser = window.localStorage.getItem("loguser");
 var page_score = window.localStorage.getItem("page_score")
-if (loguser == null) {
-    loguser = "未登录"
-}
-if (page_score == null) {
-    page_score = 0;
-}
-$('.user-id').children(':first').text("当前用户：" + loguser);
-$('.points').children(':first').text("总积分：" + String(page_score));
+
 
 $('.home').click(function (e) {
     window.location.href = '../../../home.html'
@@ -189,6 +182,24 @@ $(document).ready(function () {
     $('html').addClass('scroll');
     $('.difficulty').css('transform', 'translate(0px,0px)');
     $('.difficulty').css('box-shadow', '3px 2px 3px rgb(134, 134, 134)');
+    if (loguser == null) {
+        $('.user-id').css('display', 'none');
+    }
+    else
+    {
+        $('.user-id').children(':first').text("当前用户：" + loguser);
+        $('.user-id').fadeIn();
+    }
+    if (page_score == null) {
+        $('.points').css('display', 'none');
+        $('.star').css('display', 'none');
+    }
+    else
+    {
+        $('.points').children(':first').text("总积分：" + String(page_score));
+        $('.points').fadeIn();
+        $('.star').fadeIn();
+    }
 });
 
 function showMiddle() {
@@ -426,6 +437,11 @@ $('#next-q').click(function (e) {
 
 function update_data() {
 
+    if(loguser == null)
+    {
+        return;
+    }
+
     var data = new Object()
     data.username = loguser;
     data.score = page_score;
@@ -540,25 +556,44 @@ $('#back').click(function (e) {
         scrollTop: 0
     }, 'fast');
     $('html').addClass('scroll');
-
-    $('.add-points').text("+" + String(temp_score));
-    $('.add-points').fadeIn(1000);
-    setTimeout(() => {
-        $('.add-points').fadeOut(1000);
-    }, 1500);
-    page_score = parseFloat((parseFloat(page_score) + parseFloat(temp_score)).toFixed(2));
-    console.log(page_score)
-    window.localStorage.setItem('page_score', page_score);
-    $('.points').text("总积分：" + String(page_score));
+    
+    if(page_score != null)
+    {
+        $('.add-points').text("+" + String(temp_score));
+        $('.add-points').fadeIn(1000);
+        setTimeout(() => {
+            $('.add-points').fadeOut(1000);
+        }, 1500);
+        page_score = parseFloat((parseFloat(page_score) + parseFloat(temp_score)).toFixed(2));
+        console.log(page_score)
+        window.localStorage.setItem('page_score', page_score);
+        $('.points').text("总积分：" + String(page_score));
+    }
 });
 
 $(document).ready(function () {
     $(".user-info").hover(function () {
         $(".user-msg").fadeIn();
         $(".user-info").css("background-color", "#1a87e8")
+        $('.user-info').css('cursor', 'pointer');
     }, function () {
         $(".user-info").css("background-color", "#f7f7f700")
         $(".user-msg").fadeOut(100);
 
     });
+});
+
+$('.logout').click(function (e) { 
+    window.localStorage.clear();
+    $('.user-info').fadeOut();
+    $('.total-points').fadeOut();
+});
+
+$('.switch').click(function (e) { 
+    window.localStorage.clear();
+    $('.user-info').fadeOut();
+    $('.total-points').fadeOut();
+    setTimeout(() => {
+        window.location.href = '../../login/html/login.html'
+    }, 700);
 });

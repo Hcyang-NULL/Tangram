@@ -8,23 +8,8 @@ var error = 0
 var finish = 0
 
 var loguser = window.localStorage.getItem("loguser");
-// var loguser = "iiiiiiiiii"
 var page_score = window.localStorage.getItem("page_score")
-if (loguser == null) {
-    loguser = "未登录";
-}
-else
-{
-    // console.log($('.user-id').width())
-    // if($('.user-id').width() < 100){
-    //     $('.user-id').css('width', '50px');
-    // }
-}
-if (page_score == null) {
-    page_score = 0;
-}
-$('.user-id').children(':first').text("当前用户："+loguser);
-$('.points').children(':first').text("总积分：" + String(page_score));
+
 
 $('.home').click(function (e) {
     window.location.href = '../../../home.html'
@@ -45,12 +30,30 @@ $('.exercise').click(function (e) {
 $(document).ready(function () {
     $(".user-info").hover(function () {
         $(".user-msg").fadeIn();
-        $(".user-info").css("background-color", "#1a87e8")
+        $(".user-info").css("background-color", "#1a87e8");
+        $('.user-info').css('cursor', 'pointer');
     }, function () {
         $(".user-info").css("background-color", "#f7f7f700")
         $(".user-msg").fadeOut(100);
-
     });
+    if (loguser == null) {
+        $('.user-id').css('display', 'none');
+    }
+    else
+    {
+        $('.user-id').children(':first').text("当前用户：" + loguser);
+        $('.user-id').fadeIn();
+    }
+    if (page_score == null) {
+        $('.points').css('display', 'none');
+        $('.star').css('display', 'none');
+    }
+    else
+    {
+        $('.points').children(':first').text("总积分：" + String(page_score));
+        $('.points').fadeIn();
+        $('.star').fadeIn();
+    }
 });
 
 function showLoading() {
@@ -196,7 +199,7 @@ $(document).ready(function () {
     hideTable();
     $('error').css('display', 'none');
 
-    if(loguser == "未登录")
+    if(loguser == null)
     {
         hideTable();
         $('.unverify').css('display', 'block');
@@ -211,22 +214,6 @@ $(document).ready(function () {
 
     var data = new Object();
     data.username = loguser;
-
-    $.ajax({
-        type: "POST",
-        url: "http://119.23.248.43/getscorerank",
-        data: JSON.stringify(data),
-        dataType: "json",
-        success: function (response) {
-            console.log(response)
-            handle_score(response);
-        },
-        error: function () {
-            wait(0);
-        },
-        complete: function () {  
-        }
-    });
 
     $.ajax({
         type: "POST",
@@ -276,4 +263,35 @@ $(document).ready(function () {
         }
     });
 
+    $.ajax({
+        type: "POST",
+        url: "http://119.23.248.43/getscorerank",
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (response) {
+            console.log(response)
+            handle_score(response);
+        },
+        error: function () {
+            wait(0);
+        },
+        complete: function () {  
+        }
+    });
+
+});
+
+$('.logout').click(function (e) { 
+    window.localStorage.clear();
+    $('.user-info').fadeOut();
+    $('.total-points').fadeOut();
+});
+
+$('.switch').click(function (e) { 
+    window.localStorage.clear();
+    $('.user-info').fadeOut();
+    $('.total-points').fadeOut();
+    setTimeout(() => {
+        window.location.href = '../../login/html/login.html'
+    }, 700);
 });
