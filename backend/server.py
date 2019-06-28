@@ -185,7 +185,7 @@ async def SignUpHandler(request):
         print(e)
         cursor.close()
         db.rollback()
-        log(("注册出现未知错误:\n%s\n时间: %s具体信息:\n%s")%(str(e), str(getTime(False), str(e))))
+        log(("注册出现未知错误:\n时间: %s具体信息:\n%s")%(str(getTime(False)), str(e)))
         if 'code' not in response_dict:
             response_dict['code'] = '900'
         response_dict['msg'] = '服务暂不可用'
