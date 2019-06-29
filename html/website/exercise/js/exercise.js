@@ -5,7 +5,7 @@
 
 // window.localStorage.clear();
 
-const TOTAL_PROBLEM = 3;
+const TOTAL_PROBLEM = 10;
 
 let ed = -1;
 let problems = [

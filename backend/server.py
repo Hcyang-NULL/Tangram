@@ -65,6 +65,12 @@ def sendEmail(email, username, verify):
     log(('发送邮件成功\n目标邮箱:%s\n时间:%s')%(email, str(getTime(False))))
     return 0
 
+def sql_attack(s, m):
+    try:
+        detect = s.index(m)
+        return 1
+    except Exception as e:
+        return 0
 
 async def SignInHandler(request):
     print('\n>> sign in request')
@@ -73,6 +79,19 @@ async def SignInHandler(request):
         username = data['username']
         password = data['password']
         response_dict = {}
+
+        print(username)
+
+        if sql_attack(username, '#') == 1:
+            response_dict['code'] = 606
+            response_dict['msg'] = '请重试'
+            log(("检测到SQL注入攻击"))
+            return web.json_response(response_dict)
+        if sql_attack(username, "'") == 1:
+            response_dict['code'] = 606
+            response_dict['msg'] = '请重试'
+            log(("检测到SQL注入攻击"))
+            return web.json_response(response_dict)
 
         db = connect()
         cursor = db.cursor()
@@ -145,6 +164,17 @@ async def SignUpHandler(request):
         email = data['email']
         pwd = data['password']
         response_dict = {}
+
+        if sql_attack(username, '#') == 1:
+            response_dict['code'] = 606
+            response_dict['msg'] = '请重试'
+            log(("检测到SQL注入攻击"))
+            return web.json_response(response_dict)
+        if sql_attack(username, "'") == 1:
+            response_dict['code'] = 606
+            response_dict['msg'] = '请重试'
+            log(("检测到SQL注入攻击"))
+            return web.json_response(response_dict)
 
         db = connect()
         cursor = db.cursor()
