@@ -29,10 +29,12 @@ $(document).ready(function () {
     $('.middle-img').addClass('fadein');
     if (loguser == null) {
         $('.user-id').css('display', 'none');
+        $('.user-info').css('display', 'none');
     }
     else
     {
         $('.user-id').children(':first').text("当前用户：" + loguser);
+        $('.user-info').css('display', 'block');
         $('.user-id').fadeIn();
     }
     if (page_score == null) {

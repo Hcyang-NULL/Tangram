@@ -184,10 +184,12 @@ $(document).ready(function () {
     $('.difficulty').css('box-shadow', '3px 2px 3px rgb(134, 134, 134)');
     if (loguser == null) {
         $('.user-id').css('display', 'none');
+        $('.user-info').css('display', 'none');
     }
     else
     {
         $('.user-id').children(':first').text("当前用户：" + loguser);
+        $('.user-info').css('display', 'block');
         $('.user-id').fadeIn();
     }
     if (page_score == null) {
