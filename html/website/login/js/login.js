@@ -3,40 +3,37 @@
  * Time: 2019-06-25
  */
 
+/**
+ * 变量与常量定义
+ */
 const CODE_SIGNIN_ERR = 602;
 const CODE_UNVERIFIED = 603;
 const CODE_SIGNIN_SUCC = 701;
 const CODE_UNKNOWN_ERR = 900;
 
-
 var loguser = window.localStorage.getItem("loguser");
 var page_score = window.localStorage.getItem("page_score")
-
-
 var check_array = new Array(4).fill(0);
 
-//get parameters in url
-var url = location.search;
-var data = new Object();
-if (url.indexOf("?") != -1) {
-    var str = url.substr(1);
-    var strs = str.split("&");
-    for (var i = 0; i < strs.length; i++) {
-        data[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
-    }
-}
-if ("loguser" in data) {
-    loguser = data["loguser"]
-    $('.user-id').children(':first').text(loguser);
-}
-
-
+/**
+ * 显示错误信息提示
+ * @param {string} name 错误信息类名
+ * @param {int} index 错误信息编号
+ * @param {string} inputbox 对应的输入框
+ */
 function error_input(name, index, inputbox) {
     $(name).css('display', 'block');
     $(inputbox).css('border-color', '#D44000');
     check_array[index - 1] = 1;
 }
 
+/**
+ * 消除错误信息
+ * @param {string} name 错误信息类名
+ * @param {int} index 错误信息编号
+ * @param {string} inputbox 对应的输入框
+ * @param {bool} error 是否错误
+ */
 function eliminate_error(name, index, inputbox, error) {
     $(name).css('display', 'none');
     if (!error) {
@@ -45,6 +42,9 @@ function eliminate_error(name, index, inputbox, error) {
     check_array[index - 1] = 0
 }
 
+/**
+ * focus时消除错误信息
+ */
 $('#userid').focus(function (e) {
     hideMessage()
 });
@@ -52,7 +52,9 @@ $('#password').focus(function (e) {
     hideMessage()
 });
 
-// Check userid
+/**
+ * 检查用户名正确性
+ */
 $('#userid').blur(function (e) {
     var inputbox = '#userid'
     eliminate_error('.check4', 4, inputbox);
@@ -70,7 +72,9 @@ $('#userid').blur(function (e) {
     }
 });
 
-// Check password
+/**
+ * 检查密码正确性
+ */
 $('#password').blur(function (e) {
     var inputbox = '#password'
     eliminate_error('.check4', 4, inputbox);
@@ -88,6 +92,10 @@ $('#password').blur(function (e) {
     }
 });
 
+/**
+ * 错误信息抖动动画
+ * @param {string} name 类名
+ */
 function shake_animation(name) {
     $(name).css('animation', 'shake 0.3s');
     setTimeout(function () {
@@ -95,20 +103,34 @@ function shake_animation(name) {
     }, 300);
 }
 
+/**
+ * 显示蒙层
+ */
 function mask() {
     $('.loading').css('display', 'block');
 }
 
+/**
+ * 隐藏蒙层
+ */
 function unmask() {
     $('.loading').css('display', 'none');
 }
 
+/**
+ * 显示成功信息提示
+ * @param {string} title 标题
+ * @param {string} msg 具体信息
+ */
 function showMessageSucess(title, msg) {
     $('.error-message-succeed').children(':first').children().text(title);
     $('.error-message-succeed').children(':last').children().text(msg);
     $('.error-message-succeed').css('display', 'block');
 }
 
+/**
+ * 隐藏成功信息提示
+ */
 function hideMessage() {
     $('.error-message-succeed').children(':first').children().text('');
     $('.error-message-succeed').children(':last').children().text('');
@@ -118,12 +140,22 @@ function hideMessage() {
     $('.error-message-failed').css('display', 'none');
 }
 
+/**
+ * 显示失败信息提示
+ * @param {string} title 标题
+ * @param {string} msg 具体信息
+ */
 function showMessageFailed(title, msg) {
     $('.error-message-failed').children(':first').children().text(title);
     $('.error-message-failed').children(':last').children().text(msg);
     $('.error-message-failed').css('display', 'block');
 }
 
+/**
+ * 处理ajax返回数据
+ * @param {object} res 返回json数据
+ * @param {string} username 用户名
+ */
 function HandleResponse(res, username) {
     unmask();
     var code = res.code;
@@ -145,10 +177,16 @@ function HandleResponse(res, username) {
     }
 }
 
+/**
+ * 显示网络错误信息
+ */
 function ErrorNetwork() {
     showMessageFailed('网络错误', '请检查网络状态并重试')
 }
 
+/**
+ * 表单提交事件
+ */
 $('form').submit(function (e) {
     e.preventDefault();
 
@@ -190,6 +228,9 @@ $('form').submit(function (e) {
 
 });
 
+/**
+ * 页面跳转
+ */
 $('.home').click(function (e) {
     window.location.href = '../../../home.html'
 });
@@ -210,6 +251,9 @@ $('.rank').click(function (e) {
     window.location.href = '../../rank-list/html/rank-list.html'
 });
 
+/**
+ * 页面初始化
+ */
 $(document).ready(function () {
     $(".user-info").hover(function () {
         $(".user-msg").fadeIn();
@@ -240,12 +284,18 @@ $(document).ready(function () {
     }
 });
 
+/**
+ * 退出登录
+ */
 $('.logout').click(function (e) { 
     window.localStorage.clear();
     $('.user-info').fadeOut();
     $('.total-points').fadeOut();
 });
 
+/**
+ * 切换账号
+ */
 $('.switch').click(function (e) { 
     window.localStorage.clear();
     $('.user-info').fadeOut();

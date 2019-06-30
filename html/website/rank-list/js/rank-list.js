@@ -3,6 +3,9 @@
  * Time: 2019-06-26
  */
 
+/**
+ * 变量定义
+ */
 var readyData = 0
 var error = 0
 var finish = 0
@@ -10,7 +13,9 @@ var finish = 0
 var loguser = window.localStorage.getItem("loguser");
 var page_score = window.localStorage.getItem("page_score")
 
-
+/**
+ * 页面跳转
+ */
 $('.home').click(function (e) {
     window.location.href = '../../../home.html'
 });
@@ -27,6 +32,9 @@ $('.exercise').click(function (e) {
     window.location.href = '../../exercise/html/exercise.html'
 });
 
+/**
+ * 页面初始化
+ */
 $(document).ready(function () {
     $(".user-info").hover(function () {
         $(".user-msg").fadeIn();
@@ -56,19 +64,31 @@ $(document).ready(function () {
     }
 });
 
+/**
+ * 显示加载
+ */
 function showLoading() {
     $('.loading').css('display', 'block');
 }
 
+/**
+ * 隐藏加载
+ */
 function hideLoading() {  
     $('.loading').css('display', 'none');
 }
 
+/**
+ * 隐藏排名表
+ */
 function hideTable() {
     $('.rank-list').css('display', 'none');
     $('.info').css('display', 'none');
 }
 
+/**
+ * 显示排名表
+ */
 function showTable() {
     hideLoading();
     $('.error').css('display', 'none');
@@ -76,6 +96,10 @@ function showTable() {
     $('.info').css('display', 'block');
 }
 
+/**
+ * 处理总积分排行榜返回数据并填充表格
+ * @param {object} res 后台返回数据
+ */
 function handle_score(res) {
     if(res.code == 704)
     {
@@ -110,6 +134,10 @@ function handle_score(res) {
     }
 }
 
+/**
+ * 处理简单难度统计数据并填入表格
+ * @param {object} res 后台返回数据
+ */
 function handle_easydata(res) {
     if(res.code == 705)
     {
@@ -132,6 +160,10 @@ function handle_easydata(res) {
     $('.easy-table').append(temp);
 }
 
+/**
+ * 处理中等难度统计数据并填入表格
+ * @param {object} res 后台返回数据
+ */
 function handle_mediumdata(res) {
     if(res.code == 706)
     {
@@ -154,6 +186,10 @@ function handle_mediumdata(res) {
     $('.medium-table').append(temp);
 }
 
+/**
+ * 处理困难难度统计数据并填入表格
+ * @param {object} res 后台返回数据
+ */
 function handle_harddata(res) {
     if(res.code == 707)
     {
@@ -176,6 +212,10 @@ function handle_harddata(res) {
     $('.hard-table').append(temp);
 }
 
+/**
+ * 检测错误
+ * @param {int} type 类型标识符
+ */
 function wait(type) {
     console.log(String(type)+"  "+String(readyData)+"  "+String(finish))
     if(type == 0)
@@ -195,6 +235,9 @@ function wait(type) {
 
 }
 
+/**
+ * 页面初始化
+ */
 $(document).ready(function () {
     hideTable();
     $('error').css('display', 'none');
@@ -281,12 +324,18 @@ $(document).ready(function () {
 
 });
 
+/**
+ * 退出登录
+ */
 $('.logout').click(function (e) { 
     window.localStorage.clear();
     $('.user-info').fadeOut();
     $('.total-points').fadeOut();
 });
 
+/**
+ * 切换用户
+ */
 $('.switch').click(function (e) { 
     window.localStorage.clear();
     $('.user-info').fadeOut();

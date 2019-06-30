@@ -14,7 +14,9 @@ from email.header import Header
 from email.mime.text import MIMEText
 from stopit.utils import TimeoutException
 
-
+'''
+获取当前时间并格式化
+'''
 def getTime(raw):
     try:
         if raw:
@@ -25,18 +27,24 @@ def getTime(raw):
         print("Unknown Error during getting time")
     return -1
 
-
+'''
+连接数据库
+'''
 def connect():
     db = mysql.connect(c.db_server, c.db_user, c.db_pwd, c.db_database)
     return db
 
-
+'''
+写入日志文件
+'''
 def log(t):
     with open('log.txt', 'a+', encoding='utf8') as f:
         f.write(str(t))
         f.write('\n----------------------\n')
 
-
+'''
+发送验证邮件
+'''
 @stopit.threading_timeoutable()
 def sendEmail(email, username, verify):
     try:
@@ -65,7 +73,9 @@ def sendEmail(email, username, verify):
     log(('发送邮件成功\n目标邮箱:%s\n时间:%s')%(email, str(getTime(False))))
     return 0
 
-
+'''
+登陆响应模块
+'''
 async def SignInHandler(request):
     print('\n>> sign in request')
     try:
@@ -136,7 +146,9 @@ async def SignInHandler(request):
         log(('登陆出现未知错误:\n%s\n时间: %s具体信息:\n%s')%(str(e), str(getTime(False), str(e))))
         return web.json_response(response_dict)
 
-
+'''
+注册响应模块
+'''
 async def SignUpHandler(request):
     print('\n>> sign up request')
     try:
@@ -191,12 +203,16 @@ async def SignUpHandler(request):
         response_dict['msg'] = '服务暂不可用'
         return web.json_response(response_dict)
 
-
+'''
+根响应模块
+'''
 async def WebHandler(request):
     print('hello')
     return web.Response(text="Hello, world")
 
-
+'''
+验证邮件响应模块
+'''
 async def VerifyHandler(request):
     print("\n verify email")
     try:
@@ -248,7 +264,9 @@ async def VerifyHandler(request):
         log(("激活出现未知错误:\nusername:%s verify:%s\n具体信息:\n%s\n时间: %s具体信息:\n%s")%(username, verify, str(e), str(getTime(False), str(e))))
         return web.Response(text="激活失败，服务暂不可用")
 
-
+'''
+获取题目响应模块
+'''
 async def GetProblemHandler(request):
     print("\n>> get problem")
     try:
@@ -271,7 +289,9 @@ async def GetProblemHandler(request):
         response_dict['msg'] = "服务暂不可用"
         return web.json_response(response_dict)
 
-
+'''
+更新用户做题数据响应模块
+'''
 async def UpdateHandler(request):
     print("\n>> update request")
     try:
@@ -395,7 +415,9 @@ async def UpdateHandler(request):
         response_dict['msg'] = "服务暂不可用"
         return web.json_response(response_dict)
 
-
+'''
+获取总积分排名响应模块
+'''
 async def GetScoreRankHandler(request):
     print("\n>> Request score rank")
     try:
@@ -494,7 +516,9 @@ async def GetScoreRankHandler(request):
         response_dict['msg'] = '服务暂不可用'
         return web.json_response(response_dict)
 
-
+'''
+获取简单难度统计数据响应模块
+'''
 async def GetEasyDataHandler(request):
     print('\n>> Request easy data')
     try:
@@ -539,7 +563,9 @@ async def GetEasyDataHandler(request):
         response_dict['msg'] = '服务暂不可用'
         return web.json_response(response_dict)
 
-
+'''
+获取中等难度统计数据响应模块
+'''
 async def GetMediumDataHandler(request):
     print('\n>> Request medium data')
     try:
@@ -585,7 +611,9 @@ async def GetMediumDataHandler(request):
         response_dict['msg'] = '服务暂不可用'
         return web.json_response(response_dict)
 
-
+'''
+获取困难难度统计数据响应模块
+'''
 async def GetHardDataHandler(request):
     print('\n>> Request hard data')
     try:
@@ -630,7 +658,9 @@ async def GetHardDataHandler(request):
         response_dict['msg'] = '服务暂不可用'
         return web.json_response(response_dict)
 
-
+'''
+初始化响应路径
+'''
 def init(app):
     app.router.add_get('/', WebHandler)
     app.router.add_get('/verify', VerifyHandler)
@@ -643,6 +673,9 @@ def init(app):
     app.router.add_post('/getmediumdata', GetMediumDataHandler)
     app.router.add_post('/getharddata', GetHardDataHandler)
 
+'''
+主函数
+'''
 if __name__ == "__main__":
     app = web.Application()
     init(app)

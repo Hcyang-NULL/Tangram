@@ -7,7 +7,9 @@
 var loguser = window.localStorage.getItem("loguser");
 var page_score = window.localStorage.getItem("page_score")
 
-
+/**
+ * 页面跳转
+ */
 $('.login').click(function (e) {
     window.location.href = './website/login/html/login.html'
 });
@@ -24,6 +26,9 @@ $('.rank').click(function (e) {
     window.location.href = './website/rank-list/html/rank-list.html'
 });
 
+/**
+ * 初始化动画与数据
+ */
 $(document).ready(function () {
     $('.middle-text').addClass('fadein');
     $('.middle-img').addClass('fadein');
@@ -47,7 +52,9 @@ $(document).ready(function () {
     }
 });
 
-
+/**
+ * 个人信息hover动画
+ */
 $(document).ready(function () {
     $(".user-info").hover(function () {
         $(".user-msg").fadeIn();
@@ -60,12 +67,18 @@ $(document).ready(function () {
     });
 });
 
+/**
+ * 退出登录
+ */
 $('.logout').click(function (e) { 
     window.localStorage.clear();
     $('.user-info').fadeOut();
     $('.total-points').fadeOut();
 });
 
+/**
+ * 切换用户
+ */
 $('.switch').click(function (e) { 
     window.localStorage.clear();
     $('.user-info').fadeOut();

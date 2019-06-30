@@ -3,24 +3,38 @@
  * Time: 2019-06-15
  */
 
+
+/**
+ * 常量与变量定义
+ */
 const CODE_DNAME_ERR = 600;
 const CODE_SIGNUP_SUCC = 700;
 const CODE_UNKNOWN_ERR = 900;
 const MAX_USERID_LENGTH = 10;
 
-
 var loguser = window.localStorage.getItem("loguser");
 var page_score = window.localStorage.getItem("page_score")
-
-
 var check_array = new Array(8).fill(0);
 
+/**
+ * 显示错误信息提示
+ * @param {string} name 错误信息类名
+ * @param {int} index 错误信息编号
+ * @param {string} inputbox 对应的输入框
+ */
 function error_input(name, index, inputbox) {
     $(name).css('display', 'block');
     $(inputbox).css('border-color', '#D44000');
     check_array[index - 1] = 1;
 }
 
+/**
+ * 消除错误信息
+ * @param {string} name 错误信息类名
+ * @param {int} index 错误信息编号
+ * @param {string} inputbox 对应的输入框
+ * @param {bool} error 是否错误
+ */
 function eliminate_error(name, index, inputbox, error) {
     $(name).css('display', 'none');
     if (!error) {
@@ -29,6 +43,9 @@ function eliminate_error(name, index, inputbox, error) {
     check_array[index - 1] = 0
 }
 
+/**
+ * focus时消除错误信息
+ */
 $('#userid').focus(function (e) {
     hideMessage()
 });
@@ -42,7 +59,9 @@ $('#password2').focus(function (e) {
     hideMessage()
 });
 
-// Check userid
+/**
+ * 检查用户名正确性
+ */
 $('#userid').blur(function (e) {
     var inputbox = '#userid'
     eliminate_error('.check3', 3, inputbox);
@@ -87,7 +106,9 @@ $('#userid').blur(function (e) {
 
 });
 
-// Check email
+/**
+ * 检查邮件格式正确性
+ */
 $('#email').blur(function (e) {
     var inputbox = '#email'
     var email = $('#email').val();
@@ -121,7 +142,9 @@ $('#email').blur(function (e) {
 
 });
 
-// Check password
+/**
+ * 检查密码正确性
+ */
 $('#password1').blur(function (e) {
     var inputbox = '#password1'
     var pwd1 = $('#password1').val();
@@ -157,7 +180,9 @@ $('#password1').blur(function (e) {
 
 });
 
-// Check password again
+/**
+ * 检查第二遍密码的正确性
+ */
 $('#password2').blur(function (e) {
     var inputbox = '#password2'
     var pwd1 = $('#password1').val();
@@ -175,7 +200,10 @@ $('#password2').blur(function (e) {
 
 });
 
-
+/**
+ * 错误信息抖动动画
+ * @param {string} name 类名
+ */
 function shake_animation(name) {
     $(name).css('animation', 'shake 0.3s');
     setTimeout(function () {
@@ -183,20 +211,34 @@ function shake_animation(name) {
     }, 300);
 }
 
+/**
+ * 显示蒙层
+ */
 function mask() {
     $('.loading').css('display', 'block');
 }
 
+/**
+ * 隐藏蒙层
+ */
 function unmask() {
     $('.loading').css('display', 'none');
 }
 
+/**
+ * 显示成功信息提示
+ * @param {string} title 标题
+ * @param {string} msg 具体信息
+ */
 function showMessageSucess(title, msg) {
     $('.error-message-succeed').children(':first').children().text(title);
     $('.error-message-succeed').children(':last').children().text(msg);
     $('.error-message-succeed').css('display', 'block');
 }
 
+/**
+ * 隐藏成功信息提示
+ */
 function hideMessage() {
     $('.error-message-succeed').children(':first').children().text('');
     $('.error-message-succeed').children(':last').children().text('');
@@ -206,12 +248,21 @@ function hideMessage() {
     $('.error-message-failed').css('display', 'none');
 }
 
+/**
+ * 显示失败信息提示
+ * @param {string} title 标题
+ * @param {string} msg 具体信息
+ */
 function showMessageFailed(title, msg) {
     $('.error-message-failed').children(':first').children().text(title);
     $('.error-message-failed').children(':last').children().text(msg);
     $('.error-message-failed').css('display', 'block');
 }
 
+/**
+ * 处理ajax返回数据
+ * @param {object} res 返回json数据
+ */
 function HandleResponse(res) {
     unmask();
     var code = res.code;
@@ -230,10 +281,16 @@ function HandleResponse(res) {
     }
 }
 
+/**
+ * 显示网络错误信息
+ */
 function ErrorNetwork() {
     showMessageFailed('网络错误', '请检查网络状态并重试')
 }
 
+/**
+ * 表单提交事件
+ */
 $('form').submit(function (e) {
     e.preventDefault();
 
@@ -290,6 +347,9 @@ $('form').submit(function (e) {
     return;
 });
 
+/**
+ * 同意用户协议按钮点击事件
+ */
 $('#protocol').change(function (e) {
     if (e.target.checked) {
         $('#submit').css('background-color', 'rgb(0, 168, 98)');
@@ -300,6 +360,9 @@ $('#protocol').change(function (e) {
     }
 });
 
+/**
+ * 页面跳转
+ */
 $('.home').click(function (e) {
     window.location.href = '../../../home.html'
 });
@@ -317,6 +380,9 @@ $('.rank').click(function (e) {
     window.location.href = '../../rank-list/html/rank-list.html'
 });
 
+/**
+ * 页面初始化
+ */
 $(document).ready(function () {
     $(".user-info").hover(function () {
         $(".user-msg").fadeIn();
@@ -347,12 +413,18 @@ $(document).ready(function () {
     }
 });
 
+/**
+ * 退出登录
+ */
 $('.logout').click(function (e) { 
     window.localStorage.clear();
     $('.user-info').fadeOut();
     $('.total-points').fadeOut();
 });
 
+/**
+ * 切换用户
+ */
 $('.switch').click(function (e) { 
     window.localStorage.clear();
     $('.user-info').fadeOut();

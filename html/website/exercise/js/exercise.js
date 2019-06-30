@@ -3,10 +3,10 @@
  * Time: 2019-06-25
  */
 
-// window.localStorage.clear();
-
+/**
+ * 常量与变量定义
+ */
 const TOTAL_PROBLEM = 3;
-
 let ed = -1;
 let problems = [
     [],
@@ -22,39 +22,40 @@ let now_time;
 let record = [];
 let total_correct = 0;
 let add_score = 0;
-
 var now_score = 321.56;
-
 var loguser = window.localStorage.getItem("loguser");
 var page_score = window.localStorage.getItem("page_score")
 
-
+/**
+ * 页面跳转
+ */
 $('.home').click(function (e) {
     window.location.href = '../../../home.html'
 });
-
 $('.login').click(function (e) {
     window.location.href = '../../login/html/login.html'
 });
-
 $('.signup').click(function (e) {
     window.location.href = '../../signup/html/signup.html'
 });
-
 $('.rank').click(function (e) {
     window.location.href = '../../rank-list/html/rank-list.html'
 });
 
+/**
+ * p5图形库自定义setup函数
+ */
 function setup() {
-    // console.log('setup')
     pixelDensity(2.0);
     let canvas = createCanvas(320, 150);
     angleMode(DEGREES);
     canvas.parent('sketch-holder');
 }
 
+/**
+ * p5图形库自定义draw函数
+ */
 function draw() {
-    // console.log('draw')
     if (started == 0) {
         return;
     }
@@ -79,10 +80,12 @@ function draw() {
     } else {
         shapeCreator(timer);
     }
-
-
 }
 
+/**
+ * 绘制倒计时动画
+ * @param {需要绘制的时间} timer 
+ */
 function shapeCreator(timer) {
     stroke(220);
     strokeWeight(1);
@@ -110,6 +113,9 @@ function shapeCreator(timer) {
     text("SECS", 160, 82);
 }
 
+/**
+ * 获取时间
+ */
 function getTimer() {
     let d = new Date();
     let time = d.getTime()
@@ -146,15 +152,20 @@ function getTimer() {
     };
 
     return finalTime;
-
 }
 
+/**
+ * 隐藏做题块
+ */
 function hideMiddle() {
     $('.middle-top').css('display', 'none');
     $('.middle-bottom').css('display', 'none');
     $('.buttons').css('display', 'none');
 }
 
+/**
+ * 初始化进度条与变量
+ */
 function init() {
     $('.progress-rate').css('width', '0%');
     hideMiddle();
@@ -177,6 +188,9 @@ function init() {
     $('table').empty();
 }
 
+/**
+ * 页面初始化
+ */
 $(document).ready(function () {
     init();
     $('html').addClass('scroll');
@@ -202,12 +216,21 @@ $(document).ready(function () {
     }
 });
 
+/**
+ * 显示做题块
+ */
 function showMiddle() {
     $('.middle-top').css('display', 'block');
     $('.middle-bottom').css('display', 'block');
     $('.buttons').css('display', 'block');
+    
 }
 
+/**
+ * 将题目信息加入HTML元素中
+ * @param {object} data 题目列表
+ * @param {int} level 难度等级
+ */
 function handle_problems(data, level) {
     now_level = level;
     started = 1;
@@ -227,14 +250,23 @@ function handle_problems(data, level) {
     $('.progress-rate').css('width', rate);
 }
 
+/**
+ * 显示加载
+ */
 function showLoading() {
     $('.loading').css('display', 'block');
 }
 
+/**
+ * 隐藏加载
+ */
 function hideLoading() {
     $('.loading').css('display', 'none');
 }
 
+/**
+ * 设置难度等级的hover动画
+ */
 $('.difficulty').hover(function () {
     $('.difficulty').css('transform', 'translate(0px,0px)');
     $('.difficulty').css('box-shadow', '3px 2px 3px rgb(134, 134, 134)');
@@ -276,6 +308,9 @@ $('.hard').hover(function () {
     $('.hard').css('color', 'black');
 });
 
+/**
+ * 难度等级点击事件
+ */
 $('.easy').click(function (e) {
     init();
     $('.difficulty').css('transform', 'translate(-119px,0px)');
@@ -381,6 +416,10 @@ $('.hard').click(function (e) {
     });
 });
 
+/**
+ * 计算单题得分
+ * @param {bool} right 是否做对
+ */
 function calcu_score(right) {
     if (right == 0) {
         return 0;
@@ -398,6 +437,9 @@ function calcu_score(right) {
     }
 }
 
+/**
+ * 下一题点击事件
+ */
 $('#next-q').click(function (e) {
     var user_answer = $('.answer').val();
     $('.answer').val('');
@@ -435,6 +477,9 @@ $('#next-q').click(function (e) {
     $('.progress-rate').css('width', rate);
 });
 
+/**
+ * 提交做题信息至服务器更新数据
+ */
 function update_data() {
 
     if(loguser == null)
@@ -461,6 +506,9 @@ function update_data() {
     });
 }
 
+/**
+ * 生成做题结果表格
+ */
 function fill_table() {
     console.log(record);
     var total_score = 0;
@@ -497,6 +545,9 @@ function fill_table() {
     update_data();
 }
 
+/**
+ * 交卷点击事件
+ */
 $('#ok').click(function (e) {
     var user_answer = $('.answer').val();
     $('.answer').val('');
@@ -527,6 +578,10 @@ $('#ok').click(function (e) {
     fill_table();
 });
 
+/**
+ * 检测回车自动下一题
+ * @param {event} e 键盘事件
+ */
 function onKeyPress(e) {
     var keyCode = null;
 
@@ -546,6 +601,9 @@ function onKeyPress(e) {
     return true;
 }
 
+/**
+ * 答题记录蒙层返回点击事件
+ */
 $('#back').click(function (e) {
     $('.mask').fadeOut();
     $('.apprasial').fadeOut();
@@ -571,6 +629,9 @@ $('#back').click(function (e) {
     }
 });
 
+/**
+ * 个人信息hover动画
+ */
 $(document).ready(function () {
     $(".user-info").hover(function () {
         $(".user-msg").fadeIn();
@@ -583,12 +644,18 @@ $(document).ready(function () {
     });
 });
 
+/**
+ * 退出登录
+ */
 $('.logout').click(function (e) { 
     window.localStorage.clear();
     $('.user-info').fadeOut();
     $('.total-points').fadeOut();
 });
 
+/**
+ * 切换用户
+ */
 $('.switch').click(function (e) { 
     window.localStorage.clear();
     $('.user-info').fadeOut();
